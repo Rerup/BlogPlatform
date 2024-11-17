@@ -1,6 +1,9 @@
 
 using BlogApi.Data;
 using BlogApi.Data.Seeder;
+using BlogApi.Extensions.SeederExtension;
+using BlogApi.Services.Data.Contract;
+using BlogApi.Services.Data.Implementations;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,29 +29,21 @@ public class Program
             options.UseSqlite(configuration.GetConnectionString("BlogPlatformDb"));
         });
 
-        builder.Services.AddTransient<BlogDomainDataSeeder>();
+        builder.Services.AddTransient<ISeeder, DatabaseSeeder>();
 
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
             app.UseSwaggerUI();
+            app.UseSeeder();
         }
 
         app.UseHttpsRedirection();
-
         app.UseRouting();
         app.MapControllers();
-
         app.UseAuthorization();
-
-        using (var scope = app.Services.CreateScope())
-        {
-            var seeder = scope.ServiceProvider.GetRequiredService<BlogDomainDataSeeder>();
-            seeder.Seed();
-        }
 
         app.Run();
 
