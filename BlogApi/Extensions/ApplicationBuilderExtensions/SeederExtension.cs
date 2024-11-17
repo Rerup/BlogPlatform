@@ -1,6 +1,6 @@
 using BlogApi.Services.Data.Contract;
 
-namespace BlogApi.Extensions.SeederExtension;
+namespace BlogApi.Extensions.ApplicationBuilderExtension.SeederExtension;
 
 public static class SeederExtension
 {

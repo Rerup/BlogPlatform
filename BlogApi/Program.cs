@@ -1,10 +1,12 @@
 
 using BlogApi.Data;
-using BlogApi.Data.Seeder;
-using BlogApi.Extensions.SeederExtension;
+using BlogApi.Data.Repositories.Contract;
+using BlogApi.Data.Repositories.Implementations;
+using BlogApi.Extensions.ApplicationBuilderExtension.SeederExtension;
+using BlogApi.Services.BlogService.Contract;
+using BlogApi.Services.BlogService.Implementations;
 using BlogApi.Services.Data.Contract;
 using BlogApi.Services.Data.Implementations;
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogApi;
@@ -30,6 +32,8 @@ public class Program
         });
 
         builder.Services.AddTransient<ISeeder, DatabaseSeeder>();
+        builder.Services.AddTransient(typeof(IRepository<>), typeof(EntityFrameworkRepository<>));
+        builder.Services.AddTransient<IBlogService, BlogService>();
 
         var app = builder.Build();
 
