@@ -15,14 +15,14 @@ public class BlogService : IBlogService
         _repository = repository;
     }
 
-    public void CreateBlog(Blog blog)
+    public async Task<Blog> CreateBlog(Blog blog)
     {
-        _repository.Add(blog);
+        return await _repository.Add(blog);
     }
 
-    public void DeleteBlog(Blog blog)
+    public async Task<Blog> DeleteBlog(Blog blog)
     {
-        _repository.Delete(blog);
+        return await _repository.Delete(blog);
     }
 
     public async Task<IEnumerable<Blog>> GetBlogs()
@@ -35,9 +35,9 @@ public class BlogService : IBlogService
         return await _repository.GetById(id);
     }
 
-    public void UpdateBlog(Blog blog, int id)
+    public async Task<Blog> UpdateBlog(Blog blog, Blog newBlog)
     {
-        _repository.Update(blog);
+        return await _repository.Update(blog, newBlog);
     }
 
     public async Task<IEnumerable<Blog>> GetBlogWithComments(int id)

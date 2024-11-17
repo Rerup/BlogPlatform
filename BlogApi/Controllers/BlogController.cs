@@ -1,8 +1,6 @@
-using BlogApi.Data;
 using BlogApi.Domain.BlogDomain;
-using Microsoft.AspNetCore.Http;
+using BlogApi.Services.BlogService.Contract;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace BlogApi.Controllers
 {
@@ -10,18 +8,19 @@ namespace BlogApi.Controllers
     [ApiController]
     public class BlogController : ControllerBase
     {
-        private readonly ApplicationContext _context;
 
-        public BlogController(ApplicationContext context)
+        private readonly IBlogService _service;
+
+        public BlogController(IBlogService service)
         {
-            _context = context;
+            _service = service;
         }
 
         [HttpGet]
         [Route("")]
         public async Task<IActionResult> GetBlogs()
         {
-            var blogs = await _context.Blog.Include(b => b.Comments).ToListAsync();
+            var blogs = await _service.GetBlogs();
 
             return Ok(blogs);
         }
@@ -30,9 +29,9 @@ namespace BlogApi.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetBlog(int id)
         {
-            var blog = await _context.Blog.Include(b => b.Comments).FirstOrDefaultAsync(b => b.Id == id);
+            var blog = await _service.GetBlogWithComments(id);
 
-            return blog == null ? NotFound() : Ok(blog);
+            return blog.Count() < 1 ? NotFound() : Ok(blog);
         }
 
 
@@ -40,18 +39,16 @@ namespace BlogApi.Controllers
         [Route("{id}")]
         public async Task<IActionResult> UpdateBlog(int id, Blog blog)
         {
-            blog = await _context.Blog.FindAsync(id);
+            var existingBlog = await _service.GetBlog(id);
 
-            if (blog == null)
+            if (existingBlog == null)
             {
                 return NotFound();
             }
 
-            _context.Update(blog);
+            var updatedBlog = await _service.UpdateBlog(existingBlog, blog);
 
-            await _context.SaveChangesAsync();
-
-            return Ok(blog);
+            return Ok(updatedBlog);
         }
 
         [HttpPost]
@@ -63,9 +60,7 @@ namespace BlogApi.Controllers
                 return BadRequest();
             }
 
-            _context.Blog.Add(blog);
-
-            await _context.SaveChangesAsync();
+            await _service.CreateBlog(blog);
 
             return CreatedAtAction(nameof(PostBlog), new { id = blog.Id }, blog);
         }
@@ -75,16 +70,14 @@ namespace BlogApi.Controllers
         public async Task<IActionResult> DeleteBlog(int id)
         {
 
-            var blog = await _context.Blog.FindAsync(id);
+            var blog = await _service.GetBlog(id);
 
             if (blog == null)
             {
                 return NotFound();
             }
 
-            _context.Blog.Remove(blog);
-
-            await _context.SaveChangesAsync();
+            await _service.DeleteBlog(blog);
 
             return NoContent();
         }

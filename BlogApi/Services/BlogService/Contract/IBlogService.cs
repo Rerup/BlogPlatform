@@ -9,11 +9,11 @@ public interface IBlogService
 
     Task<IEnumerable<Blog>> GetBlogs();
 
-    void CreateBlog(Blog blog);
+    Task<Blog> CreateBlog(Blog blog);
 
-    void UpdateBlog(Blog bog, int id);
+    Task<Blog> UpdateBlog(Blog blog, Blog newBlog);
 
-    void DeleteBlog(Blog blog);
+    Task<Blog> DeleteBlog(Blog blog);
 
     Task<IEnumerable<Blog>> GetBlogWithComments(int id);
 

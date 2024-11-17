@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using BlogApi.Data.Repositories.Contract;
+using BlogApi.Domain.BlogDomain;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogApi.Data.Repositories.Implementations;
@@ -27,22 +28,34 @@ public class EntityFrameworkRepository<T> : IRepository<T> where T : class
         return await _dbSet.ToListAsync();
     }
 
-    public void Add(T entity)
+    public async Task<T> Add(T entity)
     {
         _dbSet.Add(entity);
-        _context.SaveChanges();
+
+        await _context.SaveChangesAsync();
+
+        return entity;
+
     }
 
-    public void Delete(T entity)
+    public async Task<T> Delete(T entity)
     {
         _dbSet.Remove(entity);
-        _context.SaveChanges();
+
+        await _context.SaveChangesAsync();
+
+        return entity;
     }
 
-    public void Update(T entity)
+    public async Task<T> Update(T entity, T newEntity)
     {
         _context.Entry(entity).State = EntityState.Modified;
-        _context.SaveChanges();
+
+        _context.Entry(entity).CurrentValues.SetValues(newEntity);
+
+        await _context.SaveChangesAsync();
+
+        return entity;
     }
 
     public async Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> predicate)

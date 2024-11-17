@@ -8,11 +8,11 @@ public interface IRepository<T>
 
     Task<IEnumerable<T>> GetAll();
 
-    void Add(T entity);
+    Task<T> Add(T entity);
 
-    void Update(T entity);
+    Task<T> Update(T entity, T newEntity);
 
-    void Delete(T entity);
+    Task<T> Delete(T entity);
 
     Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> predicate);
 
