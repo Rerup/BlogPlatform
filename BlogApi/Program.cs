@@ -1,4 +1,3 @@
-
 using BlogApi.Data;
 using BlogApi.Data.Repositories.Contract;
 using BlogApi.Data.Repositories.Implementations;
@@ -7,6 +6,7 @@ using BlogApi.Services.BlogService.Contract;
 using BlogApi.Services.BlogService.Implementations;
 using BlogApi.Services.Data.Contract;
 using BlogApi.Services.Data.Implementations;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogApi;
@@ -26,6 +26,13 @@ public class Program
         builder.Services.AddSwaggerGen();
         builder.Services.AddControllers();
 
+        builder.Services.AddApiVersioning(options =>
+        {
+            options.ReportApiVersions = true;
+            options.AssumeDefaultVersionWhenUnspecified = true;
+            options.DefaultApiVersion = new ApiVersion(1, 0);
+        });
+
         builder.Services.AddDbContext<ApplicationContext>(options =>
         {
             options.UseSqlite(configuration.GetConnectionString("BlogPlatformDb"));
@@ -44,10 +51,12 @@ public class Program
             app.UseSeeder();
         }
 
+
         app.UseHttpsRedirection();
         app.UseRouting();
-        app.MapControllers();
         app.UseAuthorization();
+        app.UseApiVersioning(); // Add this line
+        app.MapControllers();
 
         app.Run();
 
