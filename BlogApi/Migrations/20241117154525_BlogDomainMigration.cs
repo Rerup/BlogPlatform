@@ -19,8 +19,8 @@ namespace BlogApi.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "string", maxLength: 30, nullable: false),
                     Content = table.Column<string>(type: "text", maxLength: 1000, nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "DateTime2", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    UpdatedAt = table.Column<DateTime>(type: "DateTime2", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
+                    CreatedAt = table.Column<DateTime>(type: "DateTime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "DateTime2", nullable: false)
                 },
                 constraints: table =>
                 {

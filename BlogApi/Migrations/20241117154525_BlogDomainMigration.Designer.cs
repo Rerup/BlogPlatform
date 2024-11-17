@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogApi.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20241117110035_BlogDomainMigration")]
+    [Migration("20241117154525_BlogDomainMigration")]
     partial class BlogDomainMigration
     {
         /// <inheritdoc />
@@ -32,9 +32,7 @@ namespace BlogApi.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("DateTime2")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                        .HasColumnType("DateTime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -42,9 +40,7 @@ namespace BlogApi.Migrations
                         .HasColumnType("string");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("DateTime2")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                        .HasColumnType("DateTime2");
 
                     b.HasKey("Id");
 
@@ -80,11 +76,13 @@ namespace BlogApi.Migrations
 
             modelBuilder.Entity("BlogApi.Domain.BlogDomain.Comment", b =>
                 {
-                    b.HasOne("BlogApi.Domain.BlogDomain.Blog", null)
+                    b.HasOne("BlogApi.Domain.BlogDomain.Blog", "Blog")
                         .WithMany("Comments")
                         .HasForeignKey("BlogId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Blog");
                 });
 
             modelBuilder.Entity("BlogApi.Domain.BlogDomain.Blog", b =>
