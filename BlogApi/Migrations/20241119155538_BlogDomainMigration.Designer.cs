@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogApi.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20241117154525_BlogDomainMigration")]
+    [Migration("20241119155538_BlogDomainMigration")]
     partial class BlogDomainMigration
     {
         /// <inheritdoc />
@@ -76,13 +76,11 @@ namespace BlogApi.Migrations
 
             modelBuilder.Entity("BlogApi.Domain.BlogDomain.Comment", b =>
                 {
-                    b.HasOne("BlogApi.Domain.BlogDomain.Blog", "Blog")
+                    b.HasOne("BlogApi.Domain.BlogDomain.Blog", null)
                         .WithMany("Comments")
                         .HasForeignKey("BlogId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Blog");
                 });
 
             modelBuilder.Entity("BlogApi.Domain.BlogDomain.Blog", b =>

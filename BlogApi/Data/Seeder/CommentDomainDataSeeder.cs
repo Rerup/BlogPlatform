@@ -2,17 +2,22 @@ using BlogApi.Domain.BlogDomain;
 
 namespace BlogApi.Data.Seeder;
 
-public class CommentDomainDataSeeder(ApplicationContext context) : IWillSeed
+public class CommentDomainDataSeeder : IWillSeed
 {
 
-    private readonly ApplicationContext _context = context;
+    private readonly ApplicationContext _context;
 
-    public void Seed()
+    public CommentDomainDataSeeder(ApplicationContext context)
     {
-        SeedComments();
+        _context = context;
     }
 
-    private void SeedComments()
+    public async void Seed()
+    {
+        await SeedComments();
+    }
+
+    private async Task SeedComments()
     {
         if (!_context.Comments.Any())
         {
@@ -30,8 +35,8 @@ public class CommentDomainDataSeeder(ApplicationContext context) : IWillSeed
                 });
             }
 
-            _context.Comments.AddRange(comments);
-            _context.SaveChanges();
+            await _context.Comments.AddRangeAsync(comments);
+            await _context.SaveChangesAsync();
         }
     }
 

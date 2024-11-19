@@ -33,10 +33,10 @@ namespace BlogApi.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    BlogId = table.Column<int>(type: "INTEGER", nullable: false),
                     Content = table.Column<string>(type: "string", maxLength: 255, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "DateTime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "DateTime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "DateTime2", nullable: false),
+                    BlogId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

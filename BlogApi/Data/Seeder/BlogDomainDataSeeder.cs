@@ -3,21 +3,27 @@ using BlogApi.Domain.BlogDomain;
 
 namespace BlogApi.Data.Seeder;
 
-public class BlogDomainDataSeeder(ApplicationContext context) : IWillSeed
+public class BlogDomainDataSeeder : IWillSeed
 {
 
-    private readonly ApplicationContext _context = context;
+    private readonly ApplicationContext _context;
 
-    public void Seed()
+    public BlogDomainDataSeeder(ApplicationContext context)
     {
-        SeedBlogs();
+        _context = context;
     }
 
-    private void SeedBlogs()
+    public async void Seed()
+    {
+        await SeedBlogs();
+    }
+
+    private async Task SeedBlogs()
     {
         if (!_context.Blog.Any())
         {
             int numberOfBlogs = 5;
+
             var blogs = new List<Blog>();
 
             for (int i = 1; i <= numberOfBlogs; i++)
@@ -29,8 +35,9 @@ public class BlogDomainDataSeeder(ApplicationContext context) : IWillSeed
                 });
             }
 
-            _context.Blog.AddRange(blogs);
-            _context.SaveChanges();
+            await _context.Blog.AddRangeAsync(blogs);
+
+            await _context.SaveChangesAsync();
         }
     }
 }
