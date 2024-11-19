@@ -18,4 +18,7 @@ public interface IRepository<T>
 
     Task<IEnumerable<T>> GetWithIncludes(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
 
+    Task<bool> Any(Expression<Func<T, bool>> predicate = null);
+
+    Task AddRange(IEnumerable<T> entities);
 }

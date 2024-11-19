@@ -74,6 +74,17 @@ public class EntityFrameworkRepository<T> : IRepository<T> where T : class
 
         return await query.Where(predicate).ToListAsync();
     }
+
+    public async Task<bool> Any(Expression<Func<T, bool>> predicate = null)
+    {
+        return await _dbSet.AnyAsync(predicate);
+    }
+
+    public async Task AddRange(IEnumerable<T> entities)
+    {
+        _dbSet.AddRange(entities);
+        await _context.SaveChangesAsync();
+    }
 }
 
 
