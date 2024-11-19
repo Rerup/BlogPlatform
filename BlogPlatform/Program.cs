@@ -11,6 +11,12 @@ public class Program
         // Add services to the container.
         builder.Services.AddRazorComponents();
 
+        builder.Services.AddScoped(sp =>
+        new HttpClient
+        {
+            BaseAddress = new Uri(builder.Configuration["FrontendUrl"] ?? "http://localhost:5064/api")
+        });
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
