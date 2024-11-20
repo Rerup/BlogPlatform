@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogApi.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20241119155538_BlogDomainMigration")]
+    [Migration("20241120075245_BlogDomainMigration")]
     partial class BlogDomainMigration
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace BlogApi.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
 
-            modelBuilder.Entity("BlogApi.Domain.BlogDomain.Blog", b =>
+            modelBuilder.Entity("Domain.BlogDomain.Blog", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,7 +32,8 @@ namespace BlogApi.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("DateTime2");
+                        .HasColumnType("DateTime2")
+                        .HasAnnotation("Relational:JsonPropertyName", "created_at");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -40,14 +41,15 @@ namespace BlogApi.Migrations
                         .HasColumnType("string");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("DateTime2");
+                        .HasColumnType("DateTime2")
+                        .HasAnnotation("Relational:JsonPropertyName", "updated_at");
 
                     b.HasKey("Id");
 
                     b.ToTable("Blog");
                 });
 
-            modelBuilder.Entity("BlogApi.Domain.BlogDomain.Comment", b =>
+            modelBuilder.Entity("Domain.BlogDomain.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -74,16 +76,16 @@ namespace BlogApi.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("BlogApi.Domain.BlogDomain.Comment", b =>
+            modelBuilder.Entity("Domain.BlogDomain.Comment", b =>
                 {
-                    b.HasOne("BlogApi.Domain.BlogDomain.Blog", null)
+                    b.HasOne("Domain.BlogDomain.Blog", null)
                         .WithMany("Comments")
                         .HasForeignKey("BlogId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BlogApi.Domain.BlogDomain.Blog", b =>
+            modelBuilder.Entity("Domain.BlogDomain.Blog", b =>
                 {
                     b.Navigation("Comments");
                 });
