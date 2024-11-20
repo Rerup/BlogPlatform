@@ -40,9 +40,9 @@ public class BlogService : IBlogService
         return await _repository.Update(blog, newBlog);
     }
 
-    public async Task<IEnumerable<Blog>> GetBlogWithComments(int id)
+    public async Task<Blog> GetBlogWithComments(int id)
     {
-        return await _repository.GetWithIncludes(b => b.Id == id, b => b.Comments);
+        return await _repository.GetEntityWithIncludes(b => b.Id == id, b => b.Comments);
     }
 
 }

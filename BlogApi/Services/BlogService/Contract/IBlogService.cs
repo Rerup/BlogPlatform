@@ -15,7 +15,7 @@ public interface IBlogService
 
     Task<Blog> DeleteBlog(Blog blog);
 
-    Task<IEnumerable<Blog>> GetBlogWithComments(int id);
+    Task<Blog> GetBlogWithComments(int id);
 
 
 }

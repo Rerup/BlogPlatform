@@ -79,6 +79,23 @@ public class EntityFrameworkRepository<T> : IRepository<T> where T : class
         return await query.Where(predicate).ToListAsync();
     }
 
+    public async Task<T> GetEntityWithIncludes(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includes)
+    {
+        IQueryable<T> query = _dbSet;
+
+        foreach (var include in includes)
+        {
+            query = query.Include(include);
+        }
+
+        if (predicate == null)
+        {
+            return await query.FirstOrDefaultAsync();
+        }
+
+        return await query.Where(predicate).FirstOrDefaultAsync();
+    }
+
     public async Task<bool> Any(Expression<Func<T, bool>> predicate = null)
     {
         return await _dbSet.AnyAsync(predicate);

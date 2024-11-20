@@ -33,7 +33,7 @@ namespace BlogApi.Controllers
         {
             var blog = await _blogService.GetBlogWithComments(id);
 
-            return blog.Count() < 1 ? NotFound() : Ok(blog);
+            return blog == null ? NotFound() : Ok(blog);
         }
 
 

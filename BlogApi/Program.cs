@@ -4,6 +4,8 @@ using BlogApi.Data.Repositories.Implementations;
 using BlogApi.Extensions.ApplicationBuilderExtension.SeederExtension;
 using BlogApi.Services.BlogService.Contract;
 using BlogApi.Services.BlogService.Implementations;
+using BlogApi.Services.CommentService.Contract;
+using BlogApi.Services.CommentService.Implementations;
 using BlogApi.Services.Data.Contract;
 using BlogApi.Services.Data.Implementations;
 using Microsoft.AspNetCore.Mvc;
@@ -41,6 +43,7 @@ public class Program
         builder.Services.AddTransient<ISeeder, DatabaseSeeder>();
         builder.Services.AddTransient(typeof(IRepository<>), typeof(EntityFrameworkRepository<>));
         builder.Services.AddTransient<IBlogService, BlogService>();
+        builder.Services.AddTransient<ICommentService, CommentService>();
 
         var app = builder.Build();
 
@@ -55,7 +58,7 @@ public class Program
         app.UseHttpsRedirection();
         app.UseRouting();
         app.UseAuthorization();
-        app.UseApiVersioning(); // Add this line
+        app.UseApiVersioning();
         app.MapControllers();
 
         app.Run();
