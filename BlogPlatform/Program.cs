@@ -1,5 +1,6 @@
 using BlogPlatform.Components;
 using BlogPlatform.Services;
+using BlogPlatform.Services.Contracts;
 
 namespace BlogPlatform;
 
@@ -12,10 +13,9 @@ public class Program
         // Add services to the container.
         builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
-
         builder.Services.AddHttpClient();
-        builder.Services.AddTransient<ClientBlogService>();
-        builder.Services.AddTransient<ClientCommentService>();
+        builder.Services.AddTransient<IClientBlogService, ClientBlogService>();
+        builder.Services.AddTransient<IClientCommentService, ClientCommentService>();
 
         builder.Services.AddScoped(sp =>
         new HttpClient
