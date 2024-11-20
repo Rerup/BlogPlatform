@@ -34,7 +34,7 @@ namespace BlogApi.Controllers
         {
             var comment = await _commentService.GetComment(id);
 
-            if (comment == null)
+            if (comment is null)
             {
                 return NotFound();
             }

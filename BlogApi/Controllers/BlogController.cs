@@ -33,7 +33,7 @@ namespace BlogApi.Controllers
         {
             var blog = await _blogService.GetBlogWithComments(id);
 
-            return blog == null ? NotFound() : Ok(blog);
+            return blog is null ? NotFound() : Ok(blog);
         }
 
 
@@ -43,7 +43,7 @@ namespace BlogApi.Controllers
         {
             var existingBlog = await _blogService.GetBlog(id);
 
-            if (existingBlog == null)
+            if (existingBlog is null)
             {
                 return NotFound();
             }
@@ -57,7 +57,7 @@ namespace BlogApi.Controllers
         [Route("")]
         public async Task<IActionResult> PostBlog(Blog blog)
         {
-            if (blog == null)
+            if (blog is null)
             {
                 return BadRequest();
             }
@@ -74,7 +74,7 @@ namespace BlogApi.Controllers
 
             var blog = await _blogService.GetBlog(id);
 
-            if (blog == null)
+            if (blog is null)
             {
                 return NotFound();
             }

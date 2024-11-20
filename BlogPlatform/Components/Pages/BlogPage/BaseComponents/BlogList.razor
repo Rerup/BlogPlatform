@@ -1,11 +1,11 @@
 ﻿@using BlogPlatform.Services.Contracts
 @using Domain.BlogDomain
 @inject IClientBlogService BlogService
-<div>
+<div class="container">
 
     <h5>Blogs</h5>
 
-    @if (blogs == null)
+    @if (blogs is null)
     {
         <p><em>Loading...</em></p>
     }

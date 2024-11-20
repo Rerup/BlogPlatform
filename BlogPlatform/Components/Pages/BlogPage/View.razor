@@ -12,24 +12,21 @@
     <h3>Blog</h3>
 
     <div class="row">
-        <SingleBlog blog="@blog" onDeleteBlog="handleBlogDeleted" />
-    </div>
 
-    @if (@comments == null)
-    {
-        <p>No comments to show</p>
-    }
-    else
-    {
-        <div class="row">
+        @if (@blog is null)
+        {
+            <p>Loading ...</p>
+        }
+        else
+        {
+            <SingleBlog blog="@blog" onDeleteBlog="handleBlogDeleted" />
             <BlogCommentSection comments="@comments" onDeleteComment="handleCommentDeleted" />
-        </div>
-    }
+        }        
+    </div>
 
     <div class="row">
         <AddComment blogId="@id" OnCommentAdded="handleCommentAdded" />
     </div>
-
 </div>
 
 @code {
@@ -44,7 +41,7 @@
     {
         blog = await BlogService.GetBlogAsync(id);
 
-        if (blog.Comments != null)
+        if (blog.Comments is not null)
         {
             comments = blog.Comments;
         }

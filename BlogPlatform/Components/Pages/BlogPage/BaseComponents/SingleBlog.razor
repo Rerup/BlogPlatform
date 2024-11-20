@@ -6,7 +6,7 @@
 
 <div class="card mb-3 mt-3">
     <div class="card-body">
-        @if (blog == null)
+        @if (blog is null)
         {
             <p class="card-text">There seems to be a problem with this blog ...</p>
         }
@@ -41,9 +41,9 @@
 
            @if(!isEditing){
 
-            <div class="justify-content-end d-flex">
-                <a @onclick="ToggleEdit" class="btn rounded text-info">Edit blog</a>
-            </div>
+                <div class="justify-content-end d-flex">
+                    <a @onclick="ToggleEdit" class="btn rounded text-info">Edit blog</a>
+                </div>
            } 
 
             <div class="justify-content-end d-flex">
@@ -56,7 +56,7 @@
                 </div>
 
                 <div>
-                    <i class="bi bi-calendar"></i> posted on: @blog.CreatedAt.ToString("dd-MM-yy")
+                    <i class="bi bi-calendar"></i> posted on: @blog.CreatedAt.ToString("dd-MM-yyyy")
                 </div>
 
                 @if (blog.CreatedAt != blog.UpdatedAt)

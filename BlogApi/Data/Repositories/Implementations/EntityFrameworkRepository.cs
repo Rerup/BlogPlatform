@@ -71,7 +71,7 @@ public class EntityFrameworkRepository<T> : IRepository<T> where T : class
             query = query.Include(include);
         }
 
-        if (predicate == null)
+        if (predicate is null)
         {
             return await query.ToListAsync();
         }
@@ -88,7 +88,7 @@ public class EntityFrameworkRepository<T> : IRepository<T> where T : class
             query = query.Include(include);
         }
 
-        if (predicate == null)
+        if (predicate is null)
         {
             return await query.FirstOrDefaultAsync();
         }
