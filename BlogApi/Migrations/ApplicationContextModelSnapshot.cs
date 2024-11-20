@@ -53,7 +53,8 @@ namespace BlogApi.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("BlogId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("INTEGER")
+                        .HasAnnotation("Relational:JsonPropertyName", "blog_id");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -61,10 +62,12 @@ namespace BlogApi.Migrations
                         .HasColumnType("string");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("DateTime2");
+                        .HasColumnType("DateTime2")
+                        .HasAnnotation("Relational:JsonPropertyName", "created_at");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("DateTime2");
+                        .HasColumnType("DateTime2")
+                        .HasAnnotation("Relational:JsonPropertyName", "updated_at");
 
                     b.HasKey("Id");
 
