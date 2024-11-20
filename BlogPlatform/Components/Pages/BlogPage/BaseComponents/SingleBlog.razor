@@ -1,0 +1,38 @@
+﻿@using Domain.BlogDomain
+
+<div class="card mb-3 mt-3">
+    <div class="card-body">
+        @if (Blog == null)
+        {
+            <p class="card-text">There seems to be a problem with this blog ...</p>
+        }
+        else
+        {
+            <a href="/blog/view/@Blog.Id" class="card-title text-dark text-decoration-none">
+                <h5>@Blog.Title</h5>
+            </a>
+
+            <p class="card-text mt-2">@((Blog.Content.Length > 100) ? Blog.Content.Substring(0, 100) + "..." : Blog.Content)
+        </p>
+            <div class="justify-content-end d-flex">
+                <a href="/blog/view/@Blog.Id" class="btn btn rounded">View blog</a>
+            </div>
+
+            <div class="card-footer text-muted">
+            <div>
+                <i class="bi bi-chat"></i> @Blog.Comments?.Count()
+            </div>
+            <div>
+                <i class="bi bi-calendar"></i> Blog made: @Blog.CreatedAt.ToString("yyyy-MM-dd")
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public required Blog Blog { get; set; }
+
+}

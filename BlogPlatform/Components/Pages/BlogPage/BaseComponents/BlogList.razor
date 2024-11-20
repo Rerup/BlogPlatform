@@ -1,0 +1,33 @@
+﻿@using Domain.BlogDomain
+@inject BlogPlatform.Services.ClientBlogService BlogService
+<div>
+
+    <h5>Blogs</h5>
+
+    @if (blogs == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else if (!blogs.Any())
+    {
+        <p><em>Currently no blogs exist!</em></p>
+    }
+    else
+    {
+        @foreach (var blog in blogs)
+        {
+            <SingleBlog Blog="@blog" />
+        }
+    }
+
+</div>
+
+@code {
+
+    private IEnumerable<Blog>? blogs;
+    protected override async Task OnInitializedAsync()
+    {
+        blogs = (await BlogService.GetBlogsAsync());
+    }
+
+}

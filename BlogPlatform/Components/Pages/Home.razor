@@ -1,7 +1,18 @@
 ﻿@page "/"
+@using BlogPlatform.Components.Pages.BlogPage.BaseComponents
 
 <PageTitle>Home</PageTitle>
 
-<h1>BlogPlatform!</h1>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Welcome to BlogPlatform</h2>
+            <p>Here you can create and share your blogs with the world.</p>
+        </div>
+    </div>
+    <BlogList />
+</div>
 
-Welcome to your new app.
+@code {
+
+}
