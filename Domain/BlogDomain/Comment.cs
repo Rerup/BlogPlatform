@@ -11,7 +11,7 @@ public class Comment
     public int Id { get; set; }
 
     [Column(TypeName = "string")]
-    [Required, MinLength(1), MaxLength(255), NotNull]
+    [Required, MinLength(1), MaxLength(255)]
     public string Content { get; set; }
 
 
