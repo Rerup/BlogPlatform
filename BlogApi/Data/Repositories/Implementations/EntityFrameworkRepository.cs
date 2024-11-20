@@ -1,6 +1,5 @@
 using System.Linq.Expressions;
 using BlogApi.Data.Repositories.Contract;
-using BlogApi.Domain.BlogDomain;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogApi.Data.Repositories.Implementations;
@@ -63,13 +62,18 @@ public class EntityFrameworkRepository<T> : IRepository<T> where T : class
         return await _dbSet.Where(predicate).ToListAsync();
     }
 
-    public async Task<IEnumerable<T>> GetWithIncludes(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
+    public async Task<IEnumerable<T>> GetWithIncludes(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includes)
     {
         IQueryable<T> query = _dbSet;
 
         foreach (var include in includes)
         {
             query = query.Include(include);
+        }
+
+        if (predicate == null)
+        {
+            return await query.ToListAsync();
         }
 
         return await query.Where(predicate).ToListAsync();

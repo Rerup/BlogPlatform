@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
 
-namespace BlogApi.Domain.BlogDomain;
+namespace Domain.BlogDomain;
 
 public class Comment
 {
@@ -13,10 +14,13 @@ public class Comment
     [Required, MinLength(1), MaxLength(255), NotNull]
     public string Content { get; set; }
 
+
     [Column(TypeName = "DateTime2")]
+    [JsonPropertyName("created_at")]
     public virtual DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     [Column(TypeName = "DateTime2")]
+    [JsonPropertyName("updated_at")]
     public virtual DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
     public int BlogId { get; set; }

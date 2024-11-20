@@ -1,4 +1,4 @@
-using BlogApi.Domain.BlogDomain;
+using Domain.BlogDomain;
 using BlogApi.Services.BlogService.Contract;
 using Microsoft.AspNetCore.Mvc;
 

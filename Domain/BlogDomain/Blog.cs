@@ -2,8 +2,9 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
 
-namespace BlogApi.Domain.BlogDomain;
+namespace Domain.BlogDomain;
 
 public class Blog
 {
@@ -19,9 +20,11 @@ public class Blog
     public string Content { get; set; }
 
     [Column(TypeName = "DateTime2")]
+    [JsonPropertyName("created_at")]
     public virtual DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     [Column(TypeName = "DateTime2")]
+    [JsonPropertyName("updated_at")]
     public virtual DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
     public ICollection<Comment> Comments { get; set; } = new List<Comment>();

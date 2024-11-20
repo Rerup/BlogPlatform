@@ -1,5 +1,5 @@
 using System;
-using BlogApi.Domain.BlogDomain;
+using Domain.BlogDomain;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogApi.Data;

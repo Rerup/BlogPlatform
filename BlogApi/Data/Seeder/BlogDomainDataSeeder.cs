@@ -1,5 +1,5 @@
 using System;
-using BlogApi.Domain.BlogDomain;
+using Domain.BlogDomain;
 
 namespace BlogApi.Data.Seeder;
 

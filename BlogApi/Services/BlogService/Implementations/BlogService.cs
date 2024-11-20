@@ -1,5 +1,5 @@
 using BlogApi.Data.Repositories.Contract;
-using BlogApi.Domain.BlogDomain;
+using Domain.BlogDomain;
 using BlogApi.Services.BlogService.Contract;
 
 
@@ -27,7 +27,7 @@ public class BlogService : IBlogService
 
     public async Task<IEnumerable<Blog>> GetBlogs()
     {
-        return await _repository.GetAll();
+        return await _repository.GetWithIncludes(includes: b => b.Comments);
     }
 
     public async Task<Blog> GetBlog(int id)
