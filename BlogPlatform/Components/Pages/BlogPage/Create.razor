@@ -1,7 +1,7 @@
 ﻿@page "/blog/create"
-@using BlogPlatform.Services
+@using BlogPlatform.Services.Contracts
 @using Domain.BlogDomain
-@inject ClientBlogService BlogService
+@inject IClientBlogService BlogService
 @inject NavigationManager NavigationManager
 @using System.ComponentModel.DataAnnotations
 
@@ -10,22 +10,20 @@
 <EditForm Model="@blog" OnValidSubmit="PostBlog" FormName="CreateBlog">
 
     <DataAnnotationsValidator />
-
+    
     <div class="container">
         <h3>Create Blog</h3>
         <div class="form-group">
             <div class="col-sm">
                 <div class="row">
                     <label for="title" class="col-sm-2 col-form-label">Blog title</label>
-                    <InputText id="title" class="form-control" placeholder="Enter your blog title..."
-                        @bind-Value="blog.Title" />
+                    <InputText id="title" class="form-control" placeholder="Enter your blog title..." @bind-Value="blog.Title" />
                     <ValidationMessage For="@(() => blog.Title)" />
                 </div>
 
                 <div class="row">
                     <label for="content" class="col-sm-2 col-form-label">Blog content</label>
-                    <InputTextArea id="content" class="form-control" rows="10"
-                        placeholder="Begin writing your blog content..." @bind-Value="blog.Content" />
+                    <InputTextArea id="content" class="form-control" rows="10" placeholder="Begin writing your blog content..." @bind-Value="blog.Content" />
                     <ValidationMessage For="@(() => blog.Content)" />
                 </div>
             </div>
@@ -42,7 +40,7 @@
 @code {
 
     [SupplyParameterFromForm]
-    private Blog? blog { get; set; }
+    private Blog blog { get; set; }
 
     protected override void OnInitialized() => blog ??= new();
 
@@ -51,7 +49,6 @@
 
         await BlogService.PostBlogAsync(blog);
 
-        // redirect to home page
         NavigationManager.NavigateTo("/");
 
     }

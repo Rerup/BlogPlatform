@@ -1,6 +1,6 @@
-﻿@using Domain.BlogDomain
-@using BlogPlatform.Services
-@inject ClientBlogService BlogService
+﻿@using BlogPlatform.Services.Contracts
+@using Domain.BlogDomain
+@inject IClientBlogService BlogService
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 
@@ -50,13 +50,21 @@
                 <a @onclick="DeleteBlog" class="btn rounded text-danger text-decoration-none">Delete blog</a>
             </div>
 
-            <div class="card-footer text-muted">
+            <div class="card-footer">
                 <div>
                     <i class="bi bi-chat"></i> @blog.Comments?.Count()
                 </div>
+
                 <div>
-                    <i class="bi bi-calendar"></i> posted on: @blog.CreatedAt.ToString("yyyy-MM-dd")
+                    <i class="bi bi-calendar"></i> posted on: @blog.CreatedAt.ToString("dd-MM-yy")
                 </div>
+
+                @if (blog.CreatedAt != blog.UpdatedAt)
+                {
+                    <div>
+                        <i class="bi bi-calendar"></i> updated on: @blog.UpdatedAt.ToString("dd-MM-yyyy")
+                    </div>
+                }
             </div>
         }
     </div>
@@ -80,14 +88,17 @@
         if (confirmed)
         {
             await BlogService.DeleteBlogAsync(blog.Id);
+
             await onDeleteBlog.InvokeAsync();
         }
     }
 
     private async Task saveBlog()
     {
-        await BlogService.UpdateBlogAsync(blog);
+        var newBlog = await BlogService.UpdateBlogAsync(blog);
 
+        blog.UpdatedAt = newBlog.UpdatedAt;
+        
         ToggleEdit();
     }
 

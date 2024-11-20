@@ -1,8 +1,9 @@
 ﻿@page "/blog/view/{id:int}"
 @using BlogPlatform.Components.Pages.BlogPage.BaseComponents
 @using Domain.BlogDomain
-@using BlogPlatform.Services
-@inject ClientBlogService BlogService
+@using BlogPlatform.Services.Contracts
+@inject IClientBlogService BlogService
+@inject NavigationManager NavigationManager  
 
 <PageTitle>View blog</PageTitle>
 
@@ -11,7 +12,7 @@
     <h3>Blog</h3>
 
     <div class="row">
-        <SingleBlog blog="@blog" />
+        <SingleBlog blog="@blog" onDeleteBlog="handleBlogDeleted" />
     </div>
 
     @if (@comments == null)
@@ -61,5 +62,10 @@
         blog = await BlogService.GetBlogAsync(id);
 
         comments = blog.Comments;
+    }
+
+    private void handleBlogDeleted()
+    {
+        NavigationManager.NavigateTo("/");
     }
 }

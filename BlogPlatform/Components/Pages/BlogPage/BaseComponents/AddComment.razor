@@ -1,7 +1,7 @@
-﻿@using BlogPlatform.Services
+﻿@using BlogPlatform.Services.Contracts
 @using Domain.BlogDomain
 @using System.ComponentModel.DataAnnotations
-@inject ClientCommentService CommentService
+@inject IClientCommentService CommentService
 
 <EditForm OnValidSubmit="AddNewComment" Model="@comment" FormName="AddNewComment">
     <DataAnnotationsValidator />

@@ -1,5 +1,6 @@
-﻿@using Domain.BlogDomain
-@inject BlogPlatform.Services.ClientBlogService BlogService
+﻿@using BlogPlatform.Services.Contracts
+@using Domain.BlogDomain
+@inject IClientBlogService BlogService
 <div>
 
     <h5>Blogs</h5>

@@ -1,9 +1,10 @@
 using System;
+using BlogPlatform.Services.Contracts;
 using Domain.BlogDomain;
 
 namespace BlogPlatform.Services;
 
-public class ClientBlogService
+public class ClientBlogService : IClientBlogService
 {
 
     private readonly HttpClient _http;
@@ -17,9 +18,9 @@ public class ClientBlogService
     {
         var response = await _http.PostAsJsonAsync("blog", blog);
 
-        if (response.IsSuccessStatusCode)
+        if (!response.IsSuccessStatusCode)
         {
-            return;
+            throw new Exception("Failed to post blog");
         }
     }
 
@@ -56,7 +57,7 @@ public class ClientBlogService
         return blogs;
     }
 
-    public async Task UpdateBlogAsync(Blog blog)
+    public async Task<Blog> UpdateBlogAsync(Blog blog)
     {
         var response = await _http.PutAsJsonAsync($"blog/{blog.Id}", blog);
 
@@ -64,6 +65,11 @@ public class ClientBlogService
         {
             throw new Exception("Failed to update blog");
         }
+
+        blog = await response.Content.ReadFromJsonAsync<Blog>();
+
+        return blog;
+
     }
 
     public async Task DeleteBlogAsync(int id)

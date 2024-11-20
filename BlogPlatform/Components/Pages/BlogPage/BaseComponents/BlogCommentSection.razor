@@ -1,6 +1,6 @@
-﻿@using BlogPlatform.Services
+﻿@using BlogPlatform.Services.Contracts
 @using Domain.BlogDomain
-@inject ClientCommentService CommentService
+@inject IClientCommentService CommentService
 @inject IJSRuntime JsRuntime
 
 <div class="container">
@@ -11,9 +11,9 @@
             <div class="card mb-3 mt-3">
                 <div class="card-body">
                     <p class="card-text">@comment.Content</p>
-                    <div class="card-footer text-muted">
+                    <div class="card-footer">
                         <div>
-                            <i class="bi bi-calendar"></i> commented: @comment.CreatedAt.ToString("yyyy-MM-dd")
+                            <i class="bi bi-calendar"></i> commented: @comment.CreatedAt.ToString("dd-MM-yyyy")
                         </div>
 
                         <div class="text-danger action" @onclick="@(async () => await DeleteComment(comment.Id))">
