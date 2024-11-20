@@ -1,4 +1,5 @@
 using BlogPlatform.Components;
+using BlogPlatform.Services;
 
 namespace BlogPlatform;
 
@@ -10,11 +11,13 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddRazorComponents();
+        builder.Services.AddHttpClient();
+        builder.Services.AddTransient<ClientBlogService>();
 
         builder.Services.AddScoped(sp =>
         new HttpClient
         {
-            BaseAddress = new Uri(builder.Configuration["FrontendUrl"] ?? "http://localhost:5064/api")
+            BaseAddress = new Uri(builder.Configuration["FrontendUrl"] ?? "http://localhost:5064/api/v1")
         });
 
         var app = builder.Build();
