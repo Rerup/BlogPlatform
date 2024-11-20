@@ -23,6 +23,8 @@ public class Comment
     [JsonPropertyName("updated_at")]
     public virtual DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
+    [JsonPropertyName("blog_id")]
+    [Required]
     public int BlogId { get; set; }
 
 }

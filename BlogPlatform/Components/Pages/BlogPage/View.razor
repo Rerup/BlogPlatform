@@ -1,0 +1,65 @@
+﻿@page "/blog/view/{id:int}"
+@using BlogPlatform.Components.Pages.BlogPage.BaseComponents
+@using Domain.BlogDomain
+@using BlogPlatform.Services
+@inject ClientBlogService BlogService
+
+<PageTitle>View blog</PageTitle>
+
+<div class="container">
+
+    <h3>Blog</h3>
+
+    <div class="row">
+        <SingleBlog blog="@blog" />
+    </div>
+
+    @if (@comments == null)
+    {
+        <p>No comments to show</p>
+    }
+    else
+    {
+        <div class="row">
+            <BlogCommentSection comments="@comments" onDeleteComment="handleCommentDeleted" />
+        </div>
+    }
+
+    <div class="row">
+        <AddComment blogId="@id" OnCommentAdded="handleCommentAdded" />
+    </div>
+
+</div>
+
+@code {
+
+    [Parameter]
+    public int id { get; set; }
+    private Blog blog { get; set; }
+
+    private ICollection<Comment> comments { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        blog = await BlogService.GetBlogAsync(id);
+
+        if (blog.Comments != null)
+        {
+            comments = blog.Comments;
+        }
+    }
+
+    private async Task handleCommentAdded()
+    {
+        blog = await BlogService.GetBlogAsync(id);
+
+        comments = blog.Comments;
+    }
+
+    private async Task handleCommentDeleted()
+    {
+        blog = await BlogService.GetBlogAsync(id);
+
+        comments = blog.Comments;
+    }
+}

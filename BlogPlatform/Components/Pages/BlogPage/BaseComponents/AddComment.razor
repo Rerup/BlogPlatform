@@ -1,0 +1,47 @@
+﻿@using BlogPlatform.Services
+@using Domain.BlogDomain
+@using System.ComponentModel.DataAnnotations
+@inject ClientCommentService CommentService
+
+<EditForm OnValidSubmit="AddNewComment" Model="@comment" FormName="AddNewComment">
+    <DataAnnotationsValidator />
+    <div class="container">
+
+        <div class="row">
+            <h5>Add comment</h5>
+            <InputTextArea class="textarea" placeholder="Type something..." @bind-Value="comment.Content" />
+            <ValidationMessage For="@(() => comment.Content)" />
+        </div>
+        <div class="mb-5 row">
+            <div class="col mt-3">
+                <button class="btn btn-primary rounded" type="submit">Add</button>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public int blogId { get; set; }
+
+    [SupplyParameterFromForm]
+    public Comment comment { get; set; }
+
+    [Parameter]
+    public EventCallback OnCommentAdded { get; set; }
+
+    protected override void OnInitialized() => comment ??= new();
+
+    private async Task AddNewComment()
+    {
+        comment.BlogId = blogId;
+
+        await CommentService.AddCommentAsync(comment);
+
+        await OnCommentAdded.InvokeAsync();
+
+        comment.Content = string.Empty;
+    }
+
+}

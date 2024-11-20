@@ -16,7 +16,7 @@
     {
         @foreach (var blog in blogs)
         {
-            <SingleBlog Blog="@blog" />
+            <SingleBlog Blog="@blog" onDeleteBlog="handleBlogDeleted" />
         }
     }
 
@@ -26,6 +26,11 @@
 
     private IEnumerable<Blog>? blogs;
     protected override async Task OnInitializedAsync()
+    {
+        blogs = (await BlogService.GetBlogsAsync());
+    }
+
+    private async Task handleBlogDeleted()
     {
         blogs = (await BlogService.GetBlogsAsync());
     }

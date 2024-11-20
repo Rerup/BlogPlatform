@@ -1,31 +1,63 @@
 ﻿@using Domain.BlogDomain
+@using BlogPlatform.Services
+@inject ClientBlogService BlogService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
 
 <div class="card mb-3 mt-3">
     <div class="card-body">
-        @if (Blog == null)
+        @if (blog == null)
         {
             <p class="card-text">There seems to be a problem with this blog ...</p>
         }
         else
         {
-            <a href="/blog/view/@Blog.Id" class="card-title text-dark text-decoration-none">
-                <h5>@Blog.Title</h5>
+            <a href="/blog/view/@blog.Id" class="card-title text-dark text-decoration-none">
+                <h5>@blog.Title</h5>
             </a>
 
-            <p class="card-text mt-2">@((Blog.Content.Length > 100) ? Blog.Content.Substring(0, 100) + "..." : Blog.Content)
-        </p>
+            <EditForm Model="@blog" OnValidSubmit="saveBlog" FormName="saveBlog">
+                <DataAnnotationsValidator />
+
+                @if (isEditing)
+                {
+                    <InputTextArea class="form-control textarea" @bind-Value="blog.Content" />
+                    <ValidationMessage For="@(() => blog.Content)" />
+
+                    <div class="d-flex justify-content-end mt-3">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                }
+                else
+                {
+                    <p class="card-text mt-2">@((blog.Content.Length > 100) ? blog.Content.Substring(0, 100) + "..." : blog.Content)</p>
+                }
+
+            </EditForm>
+
             <div class="justify-content-end d-flex">
-                <a href="/blog/view/@Blog.Id" class="btn btn rounded">View blog</a>
+                <a href="/blog/view/@blog.Id" class="btn rounded text-info">View blog</a>
+            </div>
+
+           @if(!isEditing){
+
+            <div class="justify-content-end d-flex">
+                <a @onclick="ToggleEdit" class="btn rounded text-info">Edit blog</a>
+            </div>
+           } 
+
+            <div class="justify-content-end d-flex">
+                <a @onclick="DeleteBlog" class="btn rounded text-danger text-decoration-none">Delete blog</a>
             </div>
 
             <div class="card-footer text-muted">
-            <div>
-                <i class="bi bi-chat"></i> @Blog.Comments?.Count()
+                <div>
+                    <i class="bi bi-chat"></i> @blog.Comments?.Count()
+                </div>
+                <div>
+                    <i class="bi bi-calendar"></i> posted on: @blog.CreatedAt.ToString("yyyy-MM-dd")
+                </div>
             </div>
-            <div>
-                <i class="bi bi-calendar"></i> Blog made: @Blog.CreatedAt.ToString("yyyy-MM-dd")
-            </div>
-        </div>
         }
     </div>
 </div>
@@ -33,6 +65,34 @@
 @code {
 
     [Parameter]
-    public required Blog Blog { get; set; }
+    public required Blog blog { get; set; }
 
+    private bool isEditing = false;
+
+    [Parameter]
+    public EventCallback onDeleteBlog { get; set; }
+
+    private async Task DeleteBlog()
+    {
+
+        bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", "Are you sure you wish to delete the blog?");
+
+        if (confirmed)
+        {
+            await BlogService.DeleteBlogAsync(blog.Id);
+            await onDeleteBlog.InvokeAsync();
+        }
+    }
+
+    private async Task saveBlog()
+    {
+        await BlogService.UpdateBlogAsync(blog);
+
+        ToggleEdit();
+    }
+
+    private void ToggleEdit()
+    {
+        isEditing = !isEditing;
+    }
 }

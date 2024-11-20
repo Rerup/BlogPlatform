@@ -12,11 +12,11 @@ public class Blog
     public int Id { get; set; }
 
     [Column(TypeName = "string")]
-    [Required, MinLength(1), MaxLength(30), NotNull]
+    [MinLength(1, ErrorMessage = "Minium of 1 characters allowed"), MaxLength(30, ErrorMessage = "Maximum of 30 characters allowed"), NotNull]
     public string Title { get; set; }
 
     [Column(TypeName = "text")]
-    [Required, MinLength(1), MaxLength(1000), NotNull]
+    [MinLength(1, ErrorMessage = "Minium of 1 characters allowed"), MaxLength(1000, ErrorMessage = "Maximum of 1000 characters allowed"), NotNull]
     public string Content { get; set; }
 
     [Column(TypeName = "DateTime2")]
