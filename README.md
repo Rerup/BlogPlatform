@@ -25,3 +25,12 @@ git clone https://github.com/Rerup/BlogPlatform
 ```bash
 http://localhost:5037/
 ```
+
+
+- Seeding is automatically done upon starting the project.
+  But be sure to have the project set to 
+
+```bash
+ASPNETCORE_ENVIRONMENT: Development
+```
+in the launchSettings of the BlogApi project.
