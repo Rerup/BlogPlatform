@@ -1,6 +1,6 @@
 using System;
 
-namespace BlogApi.Services.Data.Contract;
+namespace BlogApi.Services.DataSeeder.Contract;
 
 public interface ISeeder
 {

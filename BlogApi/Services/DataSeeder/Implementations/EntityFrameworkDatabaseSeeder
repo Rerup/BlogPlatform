@@ -2,11 +2,11 @@ using System;
 using System.Reflection;
 using BlogApi.Data;
 using BlogApi.Data.Seeder;
-using BlogApi.Services.Data.Contract;
+using BlogApi.Services.DataSeeder.Contract;
 
-namespace BlogApi.Services.Data.Implementations;
+namespace BlogApi.Services.DataSeeder.Implementations;
 
-public class DatabaseSeeder : ISeeder
+public class EntityFrameworkDatabaseSeeder : ISeeder
 {
 
     private readonly IConfiguration _configuration;
@@ -14,7 +14,7 @@ public class DatabaseSeeder : ISeeder
 
     private readonly string seederNamespace;
 
-    public DatabaseSeeder(IConfiguration configuration, ApplicationContext context)
+    public EntityFrameworkDatabaseSeeder(IConfiguration configuration, ApplicationContext context)
     {
         _configuration = configuration;
         _context = context;
@@ -24,12 +24,20 @@ public class DatabaseSeeder : ISeeder
 
     public void StartSeed()
     {
+        TearDownAndRecreateDatabase();
+
         var seederTypes = GetSeederTypes();
 
         foreach (var seeder in seederTypes)
         {
             seeder.Seed();
         }
+    }
+
+    private void TearDownAndRecreateDatabase()
+    {
+        _context.Database.EnsureDeleted();
+        _context.Database.EnsureCreated();
     }
 
     private IEnumerable<IWillSeed> GetSeederTypes()

@@ -1,4 +1,4 @@
-using BlogApi.Services.Data.Contract;
+using BlogApi.Services.DataSeeder.Contract;
 
 namespace BlogApi.Extensions.ApplicationBuilderExtension.SeederExtension;
 
