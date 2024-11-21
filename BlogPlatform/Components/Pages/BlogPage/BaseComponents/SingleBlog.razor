@@ -1,14 +1,15 @@
-﻿@using BlogPlatform.Services.Contracts
+﻿@using BlogPlatform.Components.States
+@using BlogPlatform.Services.Contracts
 @using Domain.BlogDomain
 @inject IClientBlogService BlogService
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 
-<div class="card mb-3 mt-3">
+<div class="card  border border-primary rounded mb-3 mt-3">
     <div class="card-body">
         @if (blog is null)
         {
-            <p class="card-text">There seems to be a problem with this blog ...</p>
+            <LoadingState />
         }
         else
         {

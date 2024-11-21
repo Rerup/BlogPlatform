@@ -1,4 +1,5 @@
-﻿@using BlogPlatform.Services.Contracts
+﻿@using BlogPlatform.Components.States
+@using BlogPlatform.Services.Contracts
 @using Domain.BlogDomain
 @inject IClientBlogService BlogService
 <div class="container">
@@ -7,7 +8,7 @@
 
     @if (blogs is null)
     {
-        <p><em>Loading...</em></p>
+        <LoadingState />
     }
     else if (!blogs.Any())
     {
@@ -28,6 +29,7 @@
     private IEnumerable<Blog>? blogs;
     protected override async Task OnInitializedAsync()
     {
+       
         blogs = (await BlogService.GetBlogsAsync());
     }
 
@@ -35,5 +37,4 @@
     {
         blogs = (await BlogService.GetBlogsAsync());
     }
-
 }
