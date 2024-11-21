@@ -3,6 +3,7 @@ using System.Reflection;
 using BlogApi.Data;
 using BlogApi.Data.Seeder;
 using BlogApi.Services.DataSeeder.Contract;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlogApi.Services.DataSeeder.Implementations;
 
@@ -22,22 +23,22 @@ public class EntityFrameworkDatabaseSeeder : ISeeder
         seederNamespace = _configuration.GetSection("Seeder:Namespace").Value;
     }
 
-    public void StartSeed()
+    public async Task StartSeed()
     {
-        TearDownAndRecreateDatabase();
+        await TearDownAndRecreateDatabase();
 
         var seederTypes = GetSeederTypes();
 
         foreach (var seeder in seederTypes)
         {
-            seeder.Seed();
+            await seeder.Seed();
         }
     }
 
-    private void TearDownAndRecreateDatabase()
+    private async Task TearDownAndRecreateDatabase()
     {
-        _context.Database.EnsureDeleted();
-        _context.Database.EnsureCreated();
+        await _context.Database.EnsureDeletedAsync();
+        await _context.Database.MigrateAsync();
     }
 
     private IEnumerable<IWillSeed> GetSeederTypes()
@@ -47,7 +48,5 @@ public class EntityFrameworkDatabaseSeeder : ISeeder
             .Where(t => t.IsClass && !t.IsAbstract && typeof(IWillSeed).IsAssignableFrom(t) && t.Namespace == seederNamespace)
             .Select(t => (IWillSeed)Activator.CreateInstance(t, _context));
     }
-
-
 }
 

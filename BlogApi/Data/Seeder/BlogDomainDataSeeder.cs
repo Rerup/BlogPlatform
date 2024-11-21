@@ -13,7 +13,7 @@ public class BlogDomainDataSeeder : IWillSeed
         _context = context;
     }
 
-    public async void Seed()
+    public async Task Seed()
     {
         await SeedBlogs();
     }

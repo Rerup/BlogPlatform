@@ -12,7 +12,7 @@ public class CommentDomainDataSeeder : IWillSeed
         _context = context;
     }
 
-    public async void Seed()
+    public async Task Seed()
     {
         await SeedComments();
     }
