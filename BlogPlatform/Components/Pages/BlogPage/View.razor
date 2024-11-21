@@ -1,5 +1,6 @@
 ﻿@page "/blog/view/{id:int}"
 @using BlogPlatform.Components.Pages.BlogPage.BaseComponents
+@using BlogPlatform.Components.States
 @using Domain.BlogDomain
 @using BlogPlatform.Services.Contracts
 @inject IClientBlogService BlogService
@@ -15,12 +16,16 @@
 
         @if (@blog is null)
         {
-            <p>Loading ...</p>
+            <LoadingState />
         }
         else
         {
-            <SingleBlog blog="@blog" onDeleteBlog="handleBlogDeleted" />
-            <BlogCommentSection comments="@comments" onDeleteComment="handleCommentDeleted" />
+            <div class="mb-3">
+                <SingleBlog blog="@blog" onDeleteBlog="handleBlogDeleted" />
+            </div>
+            <div>
+                <BlogCommentSection comments="@comments" onDeleteComment="handleCommentDeleted" />
+            </div>
         }        
     </div>
 
