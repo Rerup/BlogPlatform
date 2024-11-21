@@ -1,7 +1,7 @@
 # BlogPlatform
  FlexyBox case
 
-#Documentation
+# Documentation
 ```bash
 https://docs.google.com/document/d/1OURUxINJPQTnuQjUegcf5MYckrd4dMIStqGwI3rOhdA/edit?usp=sharing
 ```
