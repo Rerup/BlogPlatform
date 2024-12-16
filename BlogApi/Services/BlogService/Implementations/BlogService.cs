@@ -40,8 +40,6 @@ public class BlogService : IBlogService
 
     public async Task<Blog> UpdateBlog(Blog blog, Blog newBlog)
     {
-        newBlog.UpdatedAt = DateTime.UtcNow;
-
         return await _repository.Update(blog, newBlog);
     }
 

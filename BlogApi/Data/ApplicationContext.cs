@@ -1,4 +1,5 @@
 using Domain.BlogDomain;
+using Domain.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogApi.Data;
@@ -34,5 +35,21 @@ public class ApplicationContext : DbContext
             new Comment { Id = 3, Content = "Comment 3", BlogId = 2 }
         );
 
+    }
+
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        var entities = ChangeTracker
+            .Entries()
+            .Where(i => i.State == EntityState.Added || i.State == EntityState.Modified)
+            .Select(i => i.Entity)
+            .OfType<Auditable>();
+
+        foreach (var e in entities)
+        {
+            e.Audit();
+        }
+
+        return base.SaveChangesAsync(cancellationToken);
     }
 }

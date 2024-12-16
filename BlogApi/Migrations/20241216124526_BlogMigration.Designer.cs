@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogApi.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20241216110648_BlogMigration")]
+    [Migration("20241216124526_BlogMigration")]
     partial class BlogMigration
     {
         /// <inheritdoc />
@@ -53,25 +53,25 @@ namespace BlogApi.Migrations
                         {
                             Id = 1,
                             Content = "Some text",
-                            CreatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 37, DateTimeKind.Utc).AddTicks(8560),
+                            CreatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(4220),
                             Title = "Blog 1",
-                            UpdatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 37, DateTimeKind.Utc).AddTicks(8560)
+                            UpdatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(4220)
                         },
                         new
                         {
                             Id = 2,
                             Content = "Some text",
-                            CreatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 37, DateTimeKind.Utc).AddTicks(9090),
+                            CreatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(4700),
                             Title = "Blog 2",
-                            UpdatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 37, DateTimeKind.Utc).AddTicks(9100)
+                            UpdatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(4700)
                         },
                         new
                         {
                             Id = 3,
                             Content = "Some text",
-                            CreatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 37, DateTimeKind.Utc).AddTicks(9100),
+                            CreatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(4700),
                             Title = "Blog 3",
-                            UpdatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 37, DateTimeKind.Utc).AddTicks(9100)
+                            UpdatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(4700)
                         });
                 });
 
@@ -110,24 +110,24 @@ namespace BlogApi.Migrations
                             Id = 1,
                             BlogId = 1,
                             Content = "Comment 1",
-                            CreatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 38, DateTimeKind.Utc).AddTicks(2040),
-                            UpdatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 38, DateTimeKind.Utc).AddTicks(2040)
+                            CreatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(7830),
+                            UpdatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(7830)
                         },
                         new
                         {
                             Id = 2,
                             BlogId = 1,
                             Content = "Comment 2",
-                            CreatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 38, DateTimeKind.Utc).AddTicks(2430),
-                            UpdatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 38, DateTimeKind.Utc).AddTicks(2430)
+                            CreatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(8290),
+                            UpdatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(8290)
                         },
                         new
                         {
                             Id = 3,
                             BlogId = 2,
                             Content = "Comment 3",
-                            CreatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 38, DateTimeKind.Utc).AddTicks(2430),
-                            UpdatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 38, DateTimeKind.Utc).AddTicks(2430)
+                            CreatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(8290),
+                            UpdatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(8290)
                         });
                 });
 
