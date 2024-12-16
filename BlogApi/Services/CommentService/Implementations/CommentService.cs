@@ -14,18 +14,18 @@ public class CommentService : ICommentService
         _commentRepository = commentRepository;
     }
 
-    public Task<Comment> GetComment(int id)
+    public async Task<Comment> GetComment(int id)
     {
-        return _commentRepository.GetById(id);
+        return await _commentRepository.GetById(id);
     }
 
-    public Task<Comment> AddCommentAsync(Comment comment)
+    public async Task<Comment> AddCommentAsync(Comment comment)
     {
-        return _commentRepository.Add(comment);
+        return await _commentRepository.Add(comment);
     }
 
-    public Task<Comment> DeleteCommentAsync(Comment comment)
+    public async Task<Comment> DeleteCommentAsync(Comment comment)
     {
-        return _commentRepository.Delete(comment);
+        return await _commentRepository.Delete(comment);
     }
 }
