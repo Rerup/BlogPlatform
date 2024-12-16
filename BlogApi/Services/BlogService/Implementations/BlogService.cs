@@ -1,6 +1,7 @@
 using BlogApi.Data.Repositories.Contract;
 using Domain.BlogDomain;
 using BlogApi.Services.BlogService.Contract;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace BlogApi.Services.BlogService.Implementations;
@@ -27,7 +28,9 @@ public class BlogService : IBlogService
 
     public async Task<IEnumerable<Blog>> GetBlogs()
     {
-        return await _repository.GetWithIncludes(includes: b => b.Comments);
+        var query = _repository.Queryable();
+
+        return await query.Include(b => b.Comments).ToListAsync();
     }
 
     public async Task<Blog> GetBlog(int id)
@@ -44,7 +47,9 @@ public class BlogService : IBlogService
 
     public async Task<Blog> GetBlogWithComments(int id)
     {
-        return await _repository.GetEntityWithIncludes(b => b.Id == id, b => b.Comments);
+        var query = _repository.Queryable();
+
+        return await query.Where(b => b.Id == id).Include(b => b.Comments).FirstOrDefaultAsync();
     }
 
 }

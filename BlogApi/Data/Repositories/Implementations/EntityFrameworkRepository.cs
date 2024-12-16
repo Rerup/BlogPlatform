@@ -57,49 +57,16 @@ public class EntityFrameworkRepository<T> : IRepository<T> where T : class
         return entity;
     }
 
-    public async Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> predicate)
+    public IQueryable<T> Queryable()
     {
-        return await _dbSet.Where(predicate).ToListAsync();
-    }
-
-    public async Task<IEnumerable<T>> GetWithIncludes(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includes)
-    {
-        IQueryable<T> query = _dbSet;
-
-        foreach (var include in includes)
-        {
-            query = query.Include(include);
-        }
-
-        if (predicate is null)
-        {
-            return await query.ToListAsync();
-        }
-
-        return await query.Where(predicate).ToListAsync();
-    }
-
-    public async Task<T> GetEntityWithIncludes(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includes)
-    {
-        IQueryable<T> query = _dbSet;
-
-        foreach (var include in includes)
-        {
-            query = query.Include(include);
-        }
-
-        if (predicate is null)
-        {
-            return await query.FirstOrDefaultAsync();
-        }
-
-        return await query.Where(predicate).FirstOrDefaultAsync();
+        return _dbSet.AsQueryable();
     }
 
     public async Task<bool> Any(Expression<Func<T, bool>> predicate = null)
     {
         return await _dbSet.AnyAsync(predicate);
     }
+
 
     public async Task AddRange(IEnumerable<T> entities)
     {

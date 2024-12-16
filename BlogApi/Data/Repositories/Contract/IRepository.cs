@@ -14,11 +14,7 @@ public interface IRepository<T>
 
     Task<T> Delete(T entity);
 
-    Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> predicate);
-
-    Task<IEnumerable<T>> GetWithIncludes(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includes);
-
-    Task<T> GetEntityWithIncludes(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includes);
+    IQueryable<T> Queryable();
 
     Task<bool> Any(Expression<Func<T, bool>> predicate = null);
 
