@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogApi.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20241120202004_BlogDomainMigration")]
-    partial class BlogDomainMigration
+    [Migration("20241216110648_BlogMigration")]
+    partial class BlogMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,6 +47,32 @@ namespace BlogApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Blog");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Content = "Some text",
+                            CreatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 37, DateTimeKind.Utc).AddTicks(8560),
+                            Title = "Blog 1",
+                            UpdatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 37, DateTimeKind.Utc).AddTicks(8560)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Content = "Some text",
+                            CreatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 37, DateTimeKind.Utc).AddTicks(9090),
+                            Title = "Blog 2",
+                            UpdatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 37, DateTimeKind.Utc).AddTicks(9100)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Content = "Some text",
+                            CreatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 37, DateTimeKind.Utc).AddTicks(9100),
+                            Title = "Blog 3",
+                            UpdatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 37, DateTimeKind.Utc).AddTicks(9100)
+                        });
                 });
 
             modelBuilder.Entity("Domain.BlogDomain.Comment", b =>
@@ -77,6 +103,32 @@ namespace BlogApi.Migrations
                     b.HasIndex("BlogId");
 
                     b.ToTable("Comments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BlogId = 1,
+                            Content = "Comment 1",
+                            CreatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 38, DateTimeKind.Utc).AddTicks(2040),
+                            UpdatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 38, DateTimeKind.Utc).AddTicks(2040)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BlogId = 1,
+                            Content = "Comment 2",
+                            CreatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 38, DateTimeKind.Utc).AddTicks(2430),
+                            UpdatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 38, DateTimeKind.Utc).AddTicks(2430)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BlogId = 2,
+                            Content = "Comment 3",
+                            CreatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 38, DateTimeKind.Utc).AddTicks(2430),
+                            UpdatedAt = new DateTime(2024, 12, 16, 11, 6, 48, 38, DateTimeKind.Utc).AddTicks(2430)
+                        });
                 });
 
             modelBuilder.Entity("Domain.BlogDomain.Comment", b =>

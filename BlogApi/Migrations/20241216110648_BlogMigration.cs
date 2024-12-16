@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace BlogApi.Migrations
 {
     /// <inheritdoc />
-    public partial class BlogDomainMigration : Migration
+    public partial class BlogMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -47,6 +49,26 @@ namespace BlogApi.Migrations
                         principalTable: "Blog",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Blog",
+                columns: new[] { "Id", "Content", "CreatedAt", "Title", "UpdatedAt" },
+                values: new object[,]
+                {
+                    { 1, "Some text", new DateTime(2024, 12, 16, 11, 6, 48, 37, DateTimeKind.Utc).AddTicks(8560), "Blog 1", new DateTime(2024, 12, 16, 11, 6, 48, 37, DateTimeKind.Utc).AddTicks(8560) },
+                    { 2, "Some text", new DateTime(2024, 12, 16, 11, 6, 48, 37, DateTimeKind.Utc).AddTicks(9090), "Blog 2", new DateTime(2024, 12, 16, 11, 6, 48, 37, DateTimeKind.Utc).AddTicks(9100) },
+                    { 3, "Some text", new DateTime(2024, 12, 16, 11, 6, 48, 37, DateTimeKind.Utc).AddTicks(9100), "Blog 3", new DateTime(2024, 12, 16, 11, 6, 48, 37, DateTimeKind.Utc).AddTicks(9100) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Comments",
+                columns: new[] { "Id", "BlogId", "Content", "CreatedAt", "UpdatedAt" },
+                values: new object[,]
+                {
+                    { 1, 1, "Comment 1", new DateTime(2024, 12, 16, 11, 6, 48, 38, DateTimeKind.Utc).AddTicks(2040), new DateTime(2024, 12, 16, 11, 6, 48, 38, DateTimeKind.Utc).AddTicks(2040) },
+                    { 2, 1, "Comment 2", new DateTime(2024, 12, 16, 11, 6, 48, 38, DateTimeKind.Utc).AddTicks(2430), new DateTime(2024, 12, 16, 11, 6, 48, 38, DateTimeKind.Utc).AddTicks(2430) },
+                    { 3, 2, "Comment 3", new DateTime(2024, 12, 16, 11, 6, 48, 38, DateTimeKind.Utc).AddTicks(2430), new DateTime(2024, 12, 16, 11, 6, 48, 38, DateTimeKind.Utc).AddTicks(2430) }
                 });
 
             migrationBuilder.CreateIndex(

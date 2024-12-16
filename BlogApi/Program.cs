@@ -1,13 +1,10 @@
 using BlogApi.Data;
 using BlogApi.Data.Repositories.Contract;
 using BlogApi.Data.Repositories.Implementations;
-using BlogApi.Extensions.ApplicationBuilderExtension.SeederExtension;
 using BlogApi.Services.BlogService.Contract;
 using BlogApi.Services.BlogService.Implementations;
 using BlogApi.Services.CommentService.Contract;
 using BlogApi.Services.CommentService.Implementations;
-using BlogApi.Services.DataSeeder.Contract;
-using BlogApi.Services.DataSeeder.Implementations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -40,7 +37,6 @@ public class Program
             options.UseSqlite(configuration.GetConnectionString("BlogPlatformDb"));
         });
 
-        builder.Services.AddTransient<ISeeder, EntityFrameworkDatabaseSeeder>();
         builder.Services.AddTransient(typeof(IRepository<>), typeof(EntityFrameworkRepository<>));
         builder.Services.AddTransient<IBlogService, BlogService>();
         builder.Services.AddTransient<ICommentService, CommentService>();
@@ -51,9 +47,7 @@ public class Program
         {
             app.UseSwagger();
             app.UseSwaggerUI();
-            app.UseSeeder();
         }
-
 
         app.UseHttpsRedirection();
         app.UseRouting();
