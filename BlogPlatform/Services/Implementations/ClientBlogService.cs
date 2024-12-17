@@ -8,10 +8,12 @@ public class ClientBlogService : IClientBlogService
 {
 
     private readonly HttpClient _http;
+    private readonly ILogger<ClientBlogService> _logger;
 
-    public ClientBlogService(HttpClient http)
+    public ClientBlogService(HttpClient http, ILogger<ClientBlogService> logger)
     {
         _http = http;
+        _logger = logger;
     }
 
     public async Task PostBlogAsync(Blog blog)
@@ -20,6 +22,8 @@ public class ClientBlogService : IClientBlogService
 
         if (!response.IsSuccessStatusCode)
         {
+            _logger.LogError("Failed to post blog id");
+
             throw new Exception("Failed to post blog");
         }
     }
@@ -30,12 +34,14 @@ public class ClientBlogService : IClientBlogService
 
         var response = await _http.GetAsync($"blog/{id}");
 
-        if (response.IsSuccessStatusCode)
+        if (!response.IsSuccessStatusCode)
         {
-            blog = await response.Content.ReadFromJsonAsync<Blog>();
+            _logger.LogError("Failed to get blog id: {blogId}", id);
 
-            return blog;
+            throw new Exception("Failed to get blog");
         }
+
+        blog = await response.Content.ReadFromJsonAsync<Blog>();
 
         return blog;
     }
@@ -46,13 +52,15 @@ public class ClientBlogService : IClientBlogService
 
         var response = await _http.GetAsync("blog");
 
-        if (response.IsSuccessStatusCode)
+        if (!response.IsSuccessStatusCode)
         {
+            _logger.LogError("Failed to get blogs");
 
-            blogs = await response.Content.ReadFromJsonAsync<IEnumerable<Blog>>();
+            throw new Exception("Failed to get blog");
 
-            return blogs;
         }
+
+        blogs = await response.Content.ReadFromJsonAsync<IEnumerable<Blog>>();
 
         return blogs;
     }
@@ -80,8 +88,5 @@ public class ClientBlogService : IClientBlogService
         {
             throw new Exception("Failed to delete blog");
         }
-
     }
-
-
 }
