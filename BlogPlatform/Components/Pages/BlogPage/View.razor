@@ -3,9 +3,8 @@
 @using BlogPlatform.Components.States
 @using Domain.BlogDomain
 @using BlogPlatform.Services.Contracts
-@inject IClientBlogService blogService
-@inject NavigationManager navigationManager
-@inject IToastService toastService
+@inject IClientBlogService BlogService
+@inject NavigationManager NavigationManager
 
 <PageTitle>View blog</PageTitle>
 
@@ -45,7 +44,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        blog = await blogService.GetBlogAsync(id);
+        blog = await BlogService.GetBlogAsync(id);
 
         if (blog.Comments is not null)
         {
@@ -55,7 +54,7 @@
 
     private async Task handleCommentAdded()
     {
-        blog = await blogService.GetBlogAsync(id);
+        blog = await BlogService.GetBlogAsync(id);
 
         comments = blog.Comments;
 
@@ -63,7 +62,7 @@
 
     private async Task handleCommentDeleted()
     {
-        blog = await blogService.GetBlogAsync(id);
+        blog = await BlogService.GetBlogAsync(id);
 
         comments = blog.Comments;
 
@@ -71,6 +70,6 @@
 
     private void handleBlogDeleted()
     {
-        navigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo("/");
     }
 }

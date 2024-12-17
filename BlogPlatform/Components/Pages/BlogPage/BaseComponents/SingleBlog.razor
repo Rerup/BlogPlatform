@@ -1,8 +1,8 @@
 ﻿@using BlogPlatform.Components.States
 @using BlogPlatform.Services.Contracts
 @using Domain.BlogDomain
-@inject IClientBlogService blogService
-@inject IToastService toastService
+@inject IClientBlogService BlogService
+@inject IToastService ToastService
 @inject IJSRuntime JsRuntime
 
 <div class="card  border border-primary rounded mb-3 mt-3">
@@ -90,23 +90,23 @@
 
         if (confirmed)
         {
-            await blogService.DeleteBlogAsync(blog.Id);
+            await BlogService.DeleteBlogAsync(blog.Id);
 
             await onDeleteBlog.InvokeAsync();
 
-            toastService.ShowSuccess("Blog deleted!");
+            ToastService.ShowSuccess("Blog deleted!");
         }
     }
 
     private async Task SaveBlog()
     {
-        var newBlog = await blogService.UpdateBlogAsync(blog);
+        var newBlog = await BlogService.UpdateBlogAsync(blog);
 
         blog.UpdatedAt = newBlog.UpdatedAt;
 
         ToggleEdit();
 
-        toastService.ShowSuccess("Blog updated!");
+        ToastService.ShowSuccess("Blog updated!");
     }
 
     private void ToggleEdit()

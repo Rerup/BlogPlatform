@@ -1,8 +1,8 @@
 ﻿@using BlogPlatform.Services.Contracts
 @using Domain.BlogDomain
 @using System.ComponentModel.DataAnnotations
-@inject IClientCommentService commentService
-@inject IToastService toastService
+@inject IClientCommentService CommentService
+@inject IToastService ToastService
 
 <EditForm OnValidSubmit="AddNewComment" Model="@comment" FormName="AddNewComment">
     <DataAnnotationsValidator />
@@ -38,11 +38,11 @@
     {
         comment.BlogId = blogId;
 
-        await commentService.AddCommentAsync(comment);
+        await CommentService.AddCommentAsync(comment);
 
         await OnCommentAdded.InvokeAsync();
 
-        toastService.ShowSuccess("Comment added!");
+        ToastService.ShowSuccess("Comment added!");
 
         comment.Content = string.Empty;
     }

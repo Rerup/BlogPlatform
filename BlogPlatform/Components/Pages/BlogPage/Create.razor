@@ -1,10 +1,10 @@
 ﻿@page "/blog/create"
 @using BlogPlatform.Services.Contracts
 @using Domain.BlogDomain
-@inject IClientBlogService blogService
-@inject NavigationManager navigationManager
+@inject IClientBlogService BlogService
+@inject NavigationManager NavigationManager
 @using System.ComponentModel.DataAnnotations
-@inject IToastService toastService
+@inject IToastService ToastService
 <PageTitle>Create blog</PageTitle>
 
 <EditForm Model="@blog" OnValidSubmit="PostBlog" FormName="CreateBlog">
@@ -49,11 +49,11 @@
     private async Task PostBlog()
     {
 
-        await blogService.PostBlogAsync(blog);
+        await BlogService.PostBlogAsync(blog);
 
-        toastService.ShowSuccess("Blog created successfully!");
+        ToastService.ShowSuccess("Blog created successfully!");
 
-        navigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo("/");
 
     }
 
