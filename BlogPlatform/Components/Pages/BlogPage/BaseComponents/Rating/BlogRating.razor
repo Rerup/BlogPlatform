@@ -1,0 +1,25 @@
+﻿@using Domain.BlogDomain
+
+<div class="d-flex">
+    @for (int i = 0; i < AmountOfStars; i++)
+    {
+        var isFilled = shouldFillStar(i);
+
+        <i class="@isFilled"></i>
+    }
+</div>
+
+@code {
+
+    [Parameter]
+    public int RatingAmount { get; set; } = 0;
+
+    [Parameter]
+    public int AmountOfStars { get; set; } = 5;
+
+    private string shouldFillStar(int index)
+    {
+        return index < RatingAmount ? "bi bi-star-fill" : "bi bi-star";
+    }
+
+}

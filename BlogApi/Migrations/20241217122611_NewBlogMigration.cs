@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BlogApi.Migrations
 {
     /// <inheritdoc />
-    public partial class BlogMigration : Migration
+    public partial class NewBlogMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,6 +21,7 @@ namespace BlogApi.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "string", maxLength: 30, nullable: false),
                     Content = table.Column<string>(type: "text", maxLength: 1000, nullable: false),
+                    Rating = table.Column<int>(type: "smallint", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "DateTime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "DateTime2", nullable: false)
                 },
@@ -53,12 +54,12 @@ namespace BlogApi.Migrations
 
             migrationBuilder.InsertData(
                 table: "Blog",
-                columns: new[] { "Id", "Content", "CreatedAt", "Title", "UpdatedAt" },
+                columns: new[] { "Id", "Content", "CreatedAt", "Rating", "Title", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, "Some text", new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(4220), "Blog 1", new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(4220) },
-                    { 2, "Some text", new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(4700), "Blog 2", new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(4700) },
-                    { 3, "Some text", new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(4700), "Blog 3", new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(4700) }
+                    { 1, "Some text", new DateTime(2024, 12, 17, 12, 26, 10, 594, DateTimeKind.Utc).AddTicks(6670), 1, "Blog 1", new DateTime(2024, 12, 17, 12, 26, 10, 594, DateTimeKind.Utc).AddTicks(6670) },
+                    { 2, "Some text", new DateTime(2024, 12, 17, 12, 26, 10, 594, DateTimeKind.Utc).AddTicks(7230), 1, "Blog 2", new DateTime(2024, 12, 17, 12, 26, 10, 594, DateTimeKind.Utc).AddTicks(7230) },
+                    { 3, "Some text", new DateTime(2024, 12, 17, 12, 26, 10, 594, DateTimeKind.Utc).AddTicks(7230), 1, "Blog 3", new DateTime(2024, 12, 17, 12, 26, 10, 594, DateTimeKind.Utc).AddTicks(7230) }
                 });
 
             migrationBuilder.InsertData(
@@ -66,9 +67,9 @@ namespace BlogApi.Migrations
                 columns: new[] { "Id", "BlogId", "Content", "CreatedAt", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, 1, "Comment 1", new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(7830), new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(7830) },
-                    { 2, 1, "Comment 2", new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(8290), new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(8290) },
-                    { 3, 2, "Comment 3", new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(8290), new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(8290) }
+                    { 1, 1, "Comment 1", new DateTime(2024, 12, 17, 12, 26, 10, 595, DateTimeKind.Utc).AddTicks(1220), new DateTime(2024, 12, 17, 12, 26, 10, 595, DateTimeKind.Utc).AddTicks(1220) },
+                    { 2, 1, "Comment 2", new DateTime(2024, 12, 17, 12, 26, 10, 595, DateTimeKind.Utc).AddTicks(1730), new DateTime(2024, 12, 17, 12, 26, 10, 595, DateTimeKind.Utc).AddTicks(1730) },
+                    { 3, 2, "Comment 3", new DateTime(2024, 12, 17, 12, 26, 10, 595, DateTimeKind.Utc).AddTicks(1730), new DateTime(2024, 12, 17, 12, 26, 10, 595, DateTimeKind.Utc).AddTicks(1730) }
                 });
 
             migrationBuilder.CreateIndex(

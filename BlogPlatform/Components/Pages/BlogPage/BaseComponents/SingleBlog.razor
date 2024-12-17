@@ -1,5 +1,6 @@
 ﻿@using BlogPlatform.Components.States
 @using BlogPlatform.Services.Contracts
+@using BlogPlatform.Components.Pages.BlogPage.BaseComponents.Rating
 @using Domain.BlogDomain
 @inject IClientBlogService BlogService
 @inject IToastService ToastService
@@ -54,20 +55,27 @@
             </div>
 
             <div class="card-footer">
-            <div>
-                <i class="bi bi-chat"></i> @blog.Comments?.Count()
-            </div>
 
-            <div>
-                <i class="bi bi-calendar"></i> posted on: @blog.CreatedAt.ToString("dd-MM-yyyy")
-            </div>
-
-            @if (blog.CreatedAt != blog.UpdatedAt)
-                {
+            <div class="row">
+                <div class="col">
                     <div>
-                        <i class="bi bi-calendar"></i> updated on: @blog.UpdatedAt.ToString("dd-MM-yyyy")
+                        <i class="bi bi-chat"></i> @blog.Comments?.Count()
                     </div>
-                }
+
+                    <div>
+                        <i class="bi bi-calendar"></i> posted on: @blog.CreatedAt.ToString("dd-MM-yyyy")
+                    </div>
+                    @if (blog.CreatedAt != blog.UpdatedAt)
+                        {
+                            <div>
+                                <i class="bi bi-calendar"></i> updated on: @blog.UpdatedAt.ToString("dd-MM-yyyy")
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <BlogRating RatingAmount="@blog.Rating" />
+                </div>
             </div>
         }
     </div>

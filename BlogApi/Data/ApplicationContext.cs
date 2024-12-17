@@ -24,9 +24,9 @@ public class ApplicationContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Blog>().HasData(
-            new Blog { Id = 1, Title = "Blog 1", Content = "Some text" },
-            new Blog { Id = 2, Title = "Blog 2", Content = "Some text" },
-            new Blog { Id = 3, Title = "Blog 3", Content = "Some text" }
+            new Blog { Id = 1, Title = "Blog 1", Content = "Some text", Rating = new Random().Next(1, 5) },
+            new Blog { Id = 2, Title = "Blog 2", Content = "Some text", Rating = new Random().Next(1, 5) },
+            new Blog { Id = 3, Title = "Blog 3", Content = "Some text", Rating = new Random().Next(1, 5) }
         );
 
         modelBuilder.Entity<Comment>().HasData(

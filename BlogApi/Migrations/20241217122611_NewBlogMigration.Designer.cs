@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogApi.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20241216124526_BlogMigration")]
-    partial class BlogMigration
+    [Migration("20241217122611_NewBlogMigration")]
+    partial class NewBlogMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,6 +35,9 @@ namespace BlogApi.Migrations
                         .HasColumnType("DateTime2")
                         .HasAnnotation("Relational:JsonPropertyName", "created_at");
 
+                    b.Property<int>("Rating")
+                        .HasColumnType("smallint");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -53,25 +56,28 @@ namespace BlogApi.Migrations
                         {
                             Id = 1,
                             Content = "Some text",
-                            CreatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(4220),
+                            CreatedAt = new DateTime(2024, 12, 17, 12, 26, 10, 594, DateTimeKind.Utc).AddTicks(6670),
+                            Rating = 1,
                             Title = "Blog 1",
-                            UpdatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(4220)
+                            UpdatedAt = new DateTime(2024, 12, 17, 12, 26, 10, 594, DateTimeKind.Utc).AddTicks(6670)
                         },
                         new
                         {
                             Id = 2,
                             Content = "Some text",
-                            CreatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(4700),
+                            CreatedAt = new DateTime(2024, 12, 17, 12, 26, 10, 594, DateTimeKind.Utc).AddTicks(7230),
+                            Rating = 1,
                             Title = "Blog 2",
-                            UpdatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(4700)
+                            UpdatedAt = new DateTime(2024, 12, 17, 12, 26, 10, 594, DateTimeKind.Utc).AddTicks(7230)
                         },
                         new
                         {
                             Id = 3,
                             Content = "Some text",
-                            CreatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(4700),
+                            CreatedAt = new DateTime(2024, 12, 17, 12, 26, 10, 594, DateTimeKind.Utc).AddTicks(7230),
+                            Rating = 1,
                             Title = "Blog 3",
-                            UpdatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(4700)
+                            UpdatedAt = new DateTime(2024, 12, 17, 12, 26, 10, 594, DateTimeKind.Utc).AddTicks(7230)
                         });
                 });
 
@@ -110,24 +116,24 @@ namespace BlogApi.Migrations
                             Id = 1,
                             BlogId = 1,
                             Content = "Comment 1",
-                            CreatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(7830),
-                            UpdatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(7830)
+                            CreatedAt = new DateTime(2024, 12, 17, 12, 26, 10, 595, DateTimeKind.Utc).AddTicks(1220),
+                            UpdatedAt = new DateTime(2024, 12, 17, 12, 26, 10, 595, DateTimeKind.Utc).AddTicks(1220)
                         },
                         new
                         {
                             Id = 2,
                             BlogId = 1,
                             Content = "Comment 2",
-                            CreatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(8290),
-                            UpdatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(8290)
+                            CreatedAt = new DateTime(2024, 12, 17, 12, 26, 10, 595, DateTimeKind.Utc).AddTicks(1730),
+                            UpdatedAt = new DateTime(2024, 12, 17, 12, 26, 10, 595, DateTimeKind.Utc).AddTicks(1730)
                         },
                         new
                         {
                             Id = 3,
                             BlogId = 2,
                             Content = "Comment 3",
-                            CreatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(8290),
-                            UpdatedAt = new DateTime(2024, 12, 16, 12, 45, 26, 177, DateTimeKind.Utc).AddTicks(8290)
+                            CreatedAt = new DateTime(2024, 12, 17, 12, 26, 10, 595, DateTimeKind.Utc).AddTicks(1730),
+                            UpdatedAt = new DateTime(2024, 12, 17, 12, 26, 10, 595, DateTimeKind.Utc).AddTicks(1730)
                         });
                 });
 
