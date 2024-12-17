@@ -1,3 +1,4 @@
+using Blazored.Toast;
 using BlogPlatform.Components;
 using BlogPlatform.Services;
 using BlogPlatform.Services.Contracts;
@@ -16,6 +17,7 @@ public class Program
         builder.Services.AddHttpClient();
         builder.Services.AddTransient<IClientBlogService, ClientBlogService>();
         builder.Services.AddTransient<IClientCommentService, ClientCommentService>();
+        builder.Services.AddBlazoredToast();
 
         builder.Services.AddScoped(sp =>
         new HttpClient

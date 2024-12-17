@@ -1,29 +1,31 @@
 ﻿@page "/blog/create"
 @using BlogPlatform.Services.Contracts
 @using Domain.BlogDomain
-@inject IClientBlogService BlogService
-@inject NavigationManager NavigationManager
+@inject IClientBlogService blogService
+@inject NavigationManager navigationManager
 @using System.ComponentModel.DataAnnotations
-
+@inject IToastService toastService
 <PageTitle>Create blog</PageTitle>
 
 <EditForm Model="@blog" OnValidSubmit="PostBlog" FormName="CreateBlog">
 
     <DataAnnotationsValidator />
-    
+
     <div class="container">
         <h3>Create Blog</h3>
         <div class="form-group">
             <div class="col-sm">
                 <div class="row">
                     <label for="title" class="col-sm-2 col-form-label">Blog title</label>
-                    <InputText id="title" class="form-control" placeholder="Enter your blog title..." @bind-Value="blog.Title" />
+                    <InputText id="title" class="form-control" placeholder="Enter your blog title..."
+                        @bind-Value="blog.Title" />
                     <ValidationMessage For="@(() => blog.Title)" />
                 </div>
 
                 <div class="row">
                     <label for="content" class="col-sm-2 col-form-label">Blog content</label>
-                    <InputTextArea id="content" class="form-control" rows="10" placeholder="Begin writing your blog content..." @bind-Value="blog.Content" />
+                    <InputTextArea id="content" class="form-control" rows="10"
+                        placeholder="Begin writing your blog content..." @bind-Value="blog.Content" />
                     <ValidationMessage For="@(() => blog.Content)" />
                 </div>
             </div>
@@ -47,9 +49,11 @@
     private async Task PostBlog()
     {
 
-        await BlogService.PostBlogAsync(blog);
+        await blogService.PostBlogAsync(blog);
 
-        NavigationManager.NavigateTo("/");
+        toastService.ShowSuccess("Blog created successfully!");
+
+        navigationManager.NavigateTo("/");
 
     }
 

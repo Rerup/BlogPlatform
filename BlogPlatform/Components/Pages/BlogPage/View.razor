@@ -3,8 +3,9 @@
 @using BlogPlatform.Components.States
 @using Domain.BlogDomain
 @using BlogPlatform.Services.Contracts
-@inject IClientBlogService BlogService
-@inject NavigationManager NavigationManager  
+@inject IClientBlogService blogService
+@inject NavigationManager navigationManager
+@inject IToastService toastService
 
 <PageTitle>View blog</PageTitle>
 
@@ -26,7 +27,7 @@
             <div>
                 <BlogCommentSection comments="@comments" onDeleteComment="handleCommentDeleted" />
             </div>
-        }        
+        }
     </div>
 
     <div class="row">
@@ -44,7 +45,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        blog = await BlogService.GetBlogAsync(id);
+        blog = await blogService.GetBlogAsync(id);
 
         if (blog.Comments is not null)
         {
@@ -54,20 +55,22 @@
 
     private async Task handleCommentAdded()
     {
-        blog = await BlogService.GetBlogAsync(id);
+        blog = await blogService.GetBlogAsync(id);
 
         comments = blog.Comments;
+
     }
 
     private async Task handleCommentDeleted()
     {
-        blog = await BlogService.GetBlogAsync(id);
+        blog = await blogService.GetBlogAsync(id);
 
         comments = blog.Comments;
+
     }
 
     private void handleBlogDeleted()
     {
-        NavigationManager.NavigateTo("/");
+        navigationManager.NavigateTo("/");
     }
 }

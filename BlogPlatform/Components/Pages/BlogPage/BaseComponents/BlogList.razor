@@ -1,7 +1,7 @@
 ﻿@using BlogPlatform.Components.States
 @using BlogPlatform.Services.Contracts
 @using Domain.BlogDomain
-@inject IClientBlogService BlogService
+@inject IClientBlogService blogService
 <div class="container">
 
     <h5>Blogs</h5>
@@ -29,12 +29,12 @@
     private IEnumerable<Blog>? blogs;
     protected override async Task OnInitializedAsync()
     {
-       
-        blogs = (await BlogService.GetBlogsAsync());
+
+        blogs = (await blogService.GetBlogsAsync());
     }
 
     private async Task handleBlogDeleted()
     {
-        blogs = (await BlogService.GetBlogsAsync());
+        blogs = (await blogService.GetBlogsAsync());
     }
 }

@@ -1,7 +1,8 @@
 ﻿@using BlogPlatform.Services.Contracts
 @using Domain.BlogDomain
-@inject IClientCommentService CommentService
+@inject IClientCommentService commentService
 @inject IJSRuntime JsRuntime
+@inject IToastService toastService
 
 <div class="container">
     <h4>Comment section</h4>
@@ -40,9 +41,12 @@
 
         if (confirmed)
         {
-            await CommentService.DeleteCommentAsync(commentId);
+            await commentService.DeleteCommentAsync(commentId);
 
             await onDeleteComment.InvokeAsync();
+
+            toastService.ShowSuccess("Comment deleted!");
+
         }
     }
 }

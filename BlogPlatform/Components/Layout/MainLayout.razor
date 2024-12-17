@@ -10,6 +10,7 @@
             <ErrorBoundary @ref="errorBoundary" Context="Exception">
                 <ChildContent>
                     @Body
+                    <BlazoredToasts ShowProgressBar="true" PauseProgressOnHover="true" />
                 </ChildContent>
                 <ErrorContent>
                     <div class="alert bg-danger text-white alert-dismissible">
@@ -19,6 +20,7 @@
                 </ErrorContent>
             </ErrorBoundary>
         </article>
+
     </main>
 </div>
 
