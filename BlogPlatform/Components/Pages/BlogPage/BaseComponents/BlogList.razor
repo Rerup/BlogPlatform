@@ -6,19 +6,19 @@
 
     <h5>Blogs</h5>
 
-    @if (blogs is null)
+    @if (Blogs is null)
     {
         <LoadingState />
     }
-    else if (!blogs.Any())
+    else if (!Blogs.Any())
     {
         <p><em>Currently no blogs exist!</em></p>
     }
     else
     {
-        @foreach (var blog in blogs)
+        @foreach (var blog in Blogs)
         {
-            <SingleBlog Blog="@blog" onDeleteBlog="handleBlogDeleted" />
+            <SingleBlog Blog="@blog" OnDeleteBlog="HandleBlogDeleted" />
         }
     }
 
@@ -26,15 +26,16 @@
 
 @code {
 
-    private IEnumerable<Blog>? blogs;
+    public IEnumerable<Blog>? Blogs;
+
     protected override async Task OnInitializedAsync()
     {
 
-        blogs = (await BlogService.GetBlogsAsync());
+        Blogs = (await BlogService.GetBlogsAsync());
     }
 
-    private async Task handleBlogDeleted()
+    private async Task HandleBlogDeleted()
     {
-        blogs = (await BlogService.GetBlogsAsync());
+        Blogs = (await BlogService.GetBlogsAsync());
     }
 }

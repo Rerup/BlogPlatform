@@ -64,6 +64,14 @@ h1:focus {
     margin-bottom: 1.5rem;
 }
 
+.blog {
+    box-shadow: #929292 0.1rem 0.1rem 0.1rem 0.1rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
+
+}
+
 .textarea {
     width: 100%;
     padding: 10px;

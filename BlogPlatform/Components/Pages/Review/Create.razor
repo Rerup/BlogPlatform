@@ -1,0 +1,34 @@
+﻿@page "/review/{blogId:int}/create"
+@using BlogPlatform.Components.Pages.BlogPage.BaseComponents
+@using BlogPlatform.Components.Pages.BlogPage.BaseComponents.Rating
+@using Domain.BlogDomain
+@inherits CreateBase
+
+<div class="container">
+
+    <h3>Review</h3>
+
+    @if (Blog is null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-8">
+                <SingleBlog blog="@Blog" />
+            </div>
+            <div class="col-md-auto">
+                <div class="row aling-items-center">
+                    <h5>Current rating</h5>
+                    <div class="col-4">
+                        <BlogRating RatingAmount="@Blog.Rating" OnRating="@(rating => HandleRating(rating))" />
+                    </div>
+                    <div class=" col-md-auto action">
+                        <i class="bi bi-floppy"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -67,6 +67,7 @@ public class ClientBlogService : IClientBlogService
 
     public async Task<Blog> UpdateBlogAsync(Blog blog)
     {
+
         var response = await _http.PutAsJsonAsync($"blog/{blog.Id}", blog);
 
         if (!response.IsSuccessStatusCode)

@@ -7,7 +7,7 @@
 @inject IToastService ToastService
 <PageTitle>Create blog</PageTitle>
 
-<EditForm Model="@blog" OnValidSubmit="PostBlog" FormName="CreateBlog">
+<EditForm Model="@Blog" OnValidSubmit="PostBlog" FormName="CreateBlog">
 
     <DataAnnotationsValidator />
 
@@ -18,15 +18,15 @@
                 <div class="row">
                     <label for="title" class="col-sm-2 col-form-label">Blog title</label>
                     <InputText id="title" class="form-control" placeholder="Enter your blog title..."
-                        @bind-Value="blog.Title" />
-                    <ValidationMessage For="@(() => blog.Title)" />
+                        @bind-Value="Blog.Title" />
+                    <ValidationMessage For="@(() => Blog.Title)" />
                 </div>
 
                 <div class="row">
                     <label for="content" class="col-sm-2 col-form-label">Blog content</label>
                     <InputTextArea id="content" class="form-control" rows="10"
-                        placeholder="Begin writing your blog content..." @bind-Value="blog.Content" />
-                    <ValidationMessage For="@(() => blog.Content)" />
+                        placeholder="Begin writing your blog content..." @bind-Value="Blog.Content" />
+                    <ValidationMessage For="@(() => Blog.Content)" />
                 </div>
             </div>
             <div class="row mt-3">
@@ -42,14 +42,14 @@
 @code {
 
     [SupplyParameterFromForm]
-    private Blog blog { get; set; }
+    public Blog Blog { get; set; }
 
-    protected override void OnInitialized() => blog ??= new();
+    protected override void OnInitialized() => Blog ??= new();
 
     private async Task PostBlog()
     {
 
-        await BlogService.PostBlogAsync(blog);
+        await BlogService.PostBlogAsync(Blog);
 
         ToastService.ShowSuccess("Blog created successfully!");
 

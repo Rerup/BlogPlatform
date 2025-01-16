@@ -10,19 +10,25 @@ public class BlogService : IBlogService
 {
 
     private readonly IRepository<Blog> _repository;
+    private readonly ILogger<BlogService> _logger;
 
-    public BlogService(IRepository<Blog> repository)
+    public BlogService(IRepository<Blog> repository, ILogger<BlogService> logger)
     {
         _repository = repository;
+        _logger = logger;
     }
 
     public async Task<Blog> CreateBlog(Blog blog)
     {
+        _logger.LogInformation("Creating a new blog");
+
         return await _repository.Add(blog);
     }
 
     public async Task<Blog> DeleteBlog(Blog blog)
     {
+        _logger.LogInformation($"Deleting a blog with id: {blog.Id} ");
+
         return await _repository.Delete(blog);
     }
 
@@ -30,16 +36,22 @@ public class BlogService : IBlogService
     {
         var query = _repository.Queryable();
 
+        _logger.LogInformation("Getting all blogs");
+
         return await query.Include(b => b.Comments).ToListAsync();
     }
 
     public async Task<Blog> GetBlog(int id)
     {
+        _logger.LogInformation($"Getting a blog with id: {id}");
+
         return await _repository.GetById(id);
     }
 
     public async Task<Blog> UpdateBlog(Blog blog, Blog newBlog)
     {
+        _logger.LogInformation($"Updating a blog with id: {blog.Id}");
+
         return await _repository.Update(blog, newBlog);
     }
 

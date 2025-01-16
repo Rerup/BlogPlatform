@@ -4,8 +4,12 @@
     @for (int i = 0; i < AmountOfStars; i++)
     {
         var isFilled = shouldFillStar(i);
+        int index = i + 1;
 
-        <i class="@isFilled"></i>
+        <div class="action">
+            <i @onclick="@(() => @Rate(index))" class="@isFilled"></i>
+        </div>
+
     }
 </div>
 
@@ -17,9 +21,18 @@
     [Parameter]
     public int AmountOfStars { get; set; } = 5;
 
+    [Parameter]
+    public EventCallback<int> OnRating { get; set; }
+
     private string shouldFillStar(int index)
     {
         return index < RatingAmount ? "bi bi-star-fill" : "bi bi-star";
+    }
+
+    public async Task Rate(int i)
+    {
+
+        await OnRating.InvokeAsync(i);
     }
 
 }

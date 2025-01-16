@@ -21,16 +21,16 @@
         else
         {
             <div class="mb-3">
-                <SingleBlog blog="@blog" onDeleteBlog="handleBlogDeleted" />
+                <SingleBlog blog="@blog" OnDeleteBlog="HandleBlogDeleted" />
             </div>
             <div>
-                <BlogCommentSection comments="@comments" onDeleteComment="handleCommentDeleted" />
+                <BlogCommentSection comments="@comments" onDeleteComment="HandleCommentDeleted" />
             </div>
         }
     </div>
 
     <div class="row">
-        <AddComment blogId="@id" OnCommentAdded="handleCommentAdded" />
+        <AddComment blogId="@id" OnCommentAdded="HandleCommentAdded" />
     </div>
 </div>
 
@@ -52,7 +52,7 @@
         }
     }
 
-    private async Task handleCommentAdded()
+    private async Task HandleCommentAdded()
     {
         blog = await BlogService.GetBlogAsync(id);
 
@@ -60,7 +60,7 @@
 
     }
 
-    private async Task handleCommentDeleted()
+    private async Task HandleCommentDeleted()
     {
         blog = await BlogService.GetBlogAsync(id);
 
@@ -68,7 +68,7 @@
 
     }
 
-    private void handleBlogDeleted()
+    private void HandleBlogDeleted()
     {
         NavigationManager.NavigateTo("/");
     }
