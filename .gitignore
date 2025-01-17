@@ -485,3 +485,6 @@ $RECYCLE.BIN/
 
 # localdb
 *.db
+
+# user settings vscode
+*.vscode

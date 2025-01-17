@@ -22,7 +22,7 @@ public class Program
         builder.Services.AddScoped(sp =>
         new HttpClient
         {
-            BaseAddress = new Uri(builder.Configuration["FrontendUrl"] ?? "http://blogapi:8080/api/v1")
+            BaseAddress = new Uri(builder.Configuration["FrontendUrl"] ?? "https://localhost:7195/api/v1")
         });
 
         var app = builder.Build();
